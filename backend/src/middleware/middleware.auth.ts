@@ -1,13 +1,13 @@
 import { HttpException, HttpStatus, Injectable, NestMiddleware } from "@nestjs/common";
 import { JwtService } from "@nestjs/jwt";
-import type { Request, Response, NextFunction } from "express";
+import type { Request, NextFunction } from "express";
 import { secretKey } from "src/constant/secret";
 
 @Injectable()
 export class MiddlewareAuthJwt implements NestMiddleware {
     constructor(private jwt: JwtService){}
 
-    async use(req: Request, res: Response, next: NextFunction) {
+    async use(req: Request, next: NextFunction) {
         const tokenAccess = req.headers.authorization?.split(' ')[1]
         if(!tokenAccess){
             (req as any).messageAuth = {

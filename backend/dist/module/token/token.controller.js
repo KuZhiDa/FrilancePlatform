@@ -21,7 +21,7 @@ let TokenController = class TokenController {
         this.tokenService = tokenService;
     }
     async postRefresh(req) {
-        this.tokenService.refreshUpdate(req);
+        this.tokenService.refreshUpdate(req.cookies.token);
     }
 };
 exports.TokenController = TokenController;

@@ -17,7 +17,8 @@ export class AuthService {
     constructor(
         @InjectModel(User) private userModel: typeof User, 
         @InjectModel(RefreshToken) private refreshTokenModel: typeof RefreshToken,
-        private token: TokenService, private emailService: EmailService
+        private token: TokenService, 
+        private emailService: EmailService
     ){}
 
     //------------Метод реализации регистрации------------------//
@@ -65,15 +66,15 @@ export class AuthService {
     //----------------------------Метод реализации авторизации---------------------------//
     async loginUser(dto: DtoForLog): Promise<{accessToken: string, refreshToken: string}> {
         //Проверка на существование пользователя
-        const data = (await this.userModel.findOne({
-            where: {
-                [Op.or]:  [
+        const data = (await this.userModel.findOne(
+            {where: 
+                {[Op.or]:  [
                     {username: dto.login} , 
                     {email: dto.login}, 
                     {phone_number: dto.login} 
-                ]
+                ]}
             }
-        }))?.dataValues
+        ))?.dataValues
 		if(!data){
 			throw new HttpException('Пользователя с такими данными не существует.', HttpStatus.BAD_REQUEST)
 		}
@@ -100,11 +101,10 @@ export class AuthService {
     }
 
     //---------------Метод реализации выхода------------------//
-    async logoutUser(req: any){
+    async logoutUser(refreshToken: string): Promise<{message: string}>{
 		let person
 
 		//Проверка наличия refresh токена
-		const refreshToken = req.cookies.token
 		if (refreshToken) {
 			//try для перехвата ошибки валидности токена
 			try {
@@ -119,6 +119,7 @@ export class AuthService {
 					[Op.and]: [{ id: person.id }, { id_user: person.id_user }],
 				},
 			})
+            
 			//Возврат сообщения клиенту о выходе пользователя
 			return { message: 'Пользователь вышел, нужно очистить данные токенов.' }
 		}

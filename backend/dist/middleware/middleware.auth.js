@@ -18,7 +18,7 @@ let MiddlewareAuthJwt = class MiddlewareAuthJwt {
     constructor(jwt) {
         this.jwt = jwt;
     }
-    async use(req, res, next) {
+    async use(req, next) {
         const tokenAccess = req.headers.authorization?.split(' ')[1];
         if (!tokenAccess) {
             req.messageAuth = {

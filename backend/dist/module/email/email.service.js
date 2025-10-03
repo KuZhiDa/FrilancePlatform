@@ -29,18 +29,9 @@ let EmailService = class EmailService {
         this.nodemailer = nodemailer;
     }
     async updateIsActivate(tokenEmail) {
+        let person;
         try {
-            const person = await this.token.proofToken(tokenEmail, secret_1.secretKey.secretEmail, false);
-            const user = (await this.userModel.findOne({ where: { id: person.id_user } }))?.dataValues;
-            console.log(user);
-            if (!user) {
-                throw new common_1.HttpException('Пользователь не найден.', common_1.HttpStatus.FORBIDDEN);
-            }
-            if (user.isActivate) {
-                throw new common_1.HttpException('Email уже подтвержден.', common_1.HttpStatus.FORBIDDEN);
-            }
-            await this.userModel.update({ isActivate: true }, { where: { id: person.id_user } });
-            return { message: `Email пользователя ${user.username} подтвержден.` };
+            person = await this.token.proofToken(tokenEmail, secret_1.secretKey.secretEmail, false);
         }
         catch (err) {
             if (err.name === 'TokenExpiresError') {
@@ -49,8 +40,17 @@ let EmailService = class EmailService {
             else if (err.name === 'JsonWebTokenError') {
                 throw new common_1.HttpException('Токен не валиден.', common_1.HttpStatus.FORBIDDEN);
             }
-            throw err;
         }
+        const user = (await this.userModel.findOne({ where: { id: person.id_user }
+        }))?.dataValues;
+        if (!user) {
+            throw new common_1.HttpException('Пользователь не найден.', common_1.HttpStatus.FORBIDDEN);
+        }
+        if (user.isActivate) {
+            throw new common_1.HttpException('Email уже подтвержден.', common_1.HttpStatus.FORBIDDEN);
+        }
+        await this.userModel.update({ isActivate: true }, { where: { id: person.id_user } });
+        return { message: `Email пользователя ${user.username} подтвержден.` };
     }
     async messageToEmail(to, subject, text) {
         if (!process.env.EMAIL_LOGIN) {
@@ -63,6 +63,7 @@ exports.EmailService = EmailService;
 exports.EmailService = EmailService = __decorate([
     (0, common_1.Injectable)(),
     __param(0, (0, sequelize_1.InjectModel)(model_user_1.User)),
-    __metadata("design:paramtypes", [Object, token_service_1.TokenService, mailer_1.MailerService])
+    __metadata("design:paramtypes", [Object, token_service_1.TokenService,
+        mailer_1.MailerService])
 ], EmailService);
 //# sourceMappingURL=email.service.js.map

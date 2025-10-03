@@ -100,14 +100,11 @@ let AuthService = class AuthService {
         return person;
     }
     async loginUser(dto) {
-        const data = (await this.userModel.findOne({
-            where: {
-                [sequelize_2.Op.or]: [
+        const data = (await this.userModel.findOne({ where: { [sequelize_2.Op.or]: [
                     { username: dto.login },
                     { email: dto.login },
                     { phone_number: dto.login }
-                ]
-            }
+                ] }
         }))?.dataValues;
         if (!data) {
             throw new common_1.HttpException('Пользователя с такими данными не существует.', common_1.HttpStatus.BAD_REQUEST);
@@ -124,9 +121,8 @@ let AuthService = class AuthService {
         });
         return { accessToken, refreshToken };
     }
-    async logoutUser(req) {
+    async logoutUser(refreshToken) {
         let person;
-        const refreshToken = req.cookies.token;
         if (refreshToken) {
             try {
                 person = await this.token.proofToken(refreshToken, secret_1.secretKey.secretRefresh, true);
@@ -149,6 +145,7 @@ exports.AuthService = AuthService = __decorate([
     (0, common_1.Injectable)(),
     __param(0, (0, sequelize_1.InjectModel)(model_user_1.User)),
     __param(1, (0, sequelize_1.InjectModel)(model_token_1.RefreshToken)),
-    __metadata("design:paramtypes", [Object, Object, token_service_1.TokenService, email_service_1.EmailService])
+    __metadata("design:paramtypes", [Object, Object, token_service_1.TokenService,
+        email_service_1.EmailService])
 ], AuthService);
 //# sourceMappingURL=auth.service.js.map

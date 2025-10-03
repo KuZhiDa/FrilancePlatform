@@ -32,23 +32,20 @@ let AuthController = class AuthController {
         return { message: 'Пользователь вошел в систему.', Access: accessToken };
     }
     postLogout(req) {
-        return this.authService.logoutUser(req);
+        return this.authService.logoutUser(req.cookies.token);
     }
 };
 exports.AuthController = AuthController;
 __decorate([
     (0, common_1.Post)('reg'),
-    (0, common_1.HttpCode)(common_1.HttpStatus.OK),
-    (0, common_1.UsePipes)(new common_1.ValidationPipe()),
-    __param(0, (0, common_1.Body)()),
+    __param(0, (0, common_1.Body)(new common_1.ValidationPipe())),
     __metadata("design:type", Function),
     __metadata("design:paramtypes", [dto_register_1.DtoForReg]),
     __metadata("design:returntype", void 0)
 ], AuthController.prototype, "postRegister", null);
 __decorate([
-    (0, common_1.UseGuards)(guard_login_1.LoginGuard),
     (0, common_1.Post)('login'),
-    (0, common_1.HttpCode)(common_1.HttpStatus.OK),
+    (0, common_1.UseGuards)(guard_login_1.LoginGuard),
     __param(0, (0, common_1.Body)()),
     __param(1, (0, common_1.Res)({ passthrough: true })),
     __metadata("design:type", Function),
@@ -57,7 +54,6 @@ __decorate([
 ], AuthController.prototype, "postLogin", null);
 __decorate([
     (0, common_1.Post)('logout'),
-    (0, common_1.HttpCode)(common_1.HttpStatus.OK),
     __param(0, (0, common_1.Req)()),
     __metadata("design:type", Function),
     __metadata("design:paramtypes", [Object]),

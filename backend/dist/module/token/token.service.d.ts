@@ -7,5 +7,5 @@ export declare class TokenService {
     constructor(refreshTokenModel: typeof RefreshToken, jwt: JwtService);
     createToken(person: object, secret: string, time: string): Promise<string>;
     proofToken(token: string, secret: string, flag: boolean): Promise<dtoForProof>;
-    refreshUpdate(req: any): Promise<string>;
+    refreshUpdate(tokenRefresh: string): Promise<string | undefined>;
 }

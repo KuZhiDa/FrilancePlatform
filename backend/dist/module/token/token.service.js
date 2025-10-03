@@ -44,26 +44,25 @@ let TokenService = class TokenService {
             throw err;
         }
     }
-    async refreshUpdate(req) {
-        const tokenRefresh = req.cookies.token;
+    async refreshUpdate(tokenRefresh) {
+        if (!tokenRefresh) {
+            throw new common_1.HttpException('Refresh токена нет.', common_1.HttpStatus.UNAUTHORIZED);
+        }
+        let person;
         try {
-            if (!tokenRefresh) {
-                throw new common_1.HttpException('Refresh токена нет.', common_1.HttpStatus.UNAUTHORIZED);
-            }
-            const { id_user, role_user } = await this.proofToken(tokenRefresh, secret_1.secretKey.secretRefresh, false);
-            const tokenAccess = await this.createToken({ id_user: id_user, role_user: role_user }, secret_1.secretKey.secretAccess, '1h');
+            person = await this.proofToken(tokenRefresh, secret_1.secretKey.secretRefresh, false);
+            const tokenAccess = await this.createToken({ id_user: person.id_user, role_user: person.role_user }, secret_1.secretKey.secretAccess, '1h');
             return tokenAccess;
         }
         catch (err) {
             if (err.name === 'TokenExpiredError') {
-                const { id, id_user } = await this.proofToken(tokenRefresh, secret_1.secretKey.secretRefresh, true);
-                await this.refreshTokenModel.destroy({ where: { id: id, id_user: id_user } });
+                person = await this.proofToken(tokenRefresh, secret_1.secretKey.secretRefresh, true);
+                await this.refreshTokenModel.destroy({ where: { id: person.id, id_user: person.id_user } });
                 throw new common_1.HttpException('Срок действия Refresh токена истек.', common_1.HttpStatus.UNAUTHORIZED);
             }
             else if (err.name === 'JsonWebTokenError') {
                 throw new common_1.HttpException('Refresh токен не верный.', common_1.HttpStatus.UNAUTHORIZED);
             }
-            throw err;
         }
     }
 };

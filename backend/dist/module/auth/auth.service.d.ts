@@ -16,7 +16,7 @@ export declare class AuthService {
         accessToken: string;
         refreshToken: string;
     }>;
-    logoutUser(req: any): Promise<{
+    logoutUser(refreshToken: string): Promise<{
         message: string;
     }>;
 }

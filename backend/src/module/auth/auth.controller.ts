@@ -1,4 +1,4 @@
-import { Body, Controller, HttpCode, HttpStatus, Post, UsePipes, ValidationPipe, Res, UseGuards, Get, Req, Param, HttpException } from '@nestjs/common';
+import { Body, Controller, Post, ValidationPipe, Res, UseGuards, Req } from '@nestjs/common';
 import { AuthService } from './auth.service';
 import { DtoForReg } from './dto.auth/dto.register';
 import type { Response, Request } from 'express';
@@ -10,15 +10,12 @@ export class AuthController {
 	constructor(private authService: AuthService) {}
 
 	@Post('reg')
-	@HttpCode(HttpStatus.OK)
-	@UsePipes(new ValidationPipe())
-	postRegister(@Body() body: DtoForReg) {
+	postRegister(@Body(new ValidationPipe()) body: DtoForReg) {
 		return this.authService.registerUser(body)
 	}
 
-	@UseGuards(LoginGuard)
 	@Post('login')
-	@HttpCode(HttpStatus.OK)
+	@UseGuards(LoginGuard)
 	async postLogin(@Body() body: DtoForLog, @Res({ passthrough: true}) res: Response) {
 		const {accessToken, refreshToken} = await this.authService.loginUser(body)
 		res.cookie('token', refreshToken, {httpOnly: true, maxAge: 30 * 24 * 60 * 60 * 1000})
@@ -26,8 +23,7 @@ export class AuthController {
 	}
 	
 	@Post('logout')
-	@HttpCode(HttpStatus.OK)
 	postLogout(@Req() req: Request){
-		return this.authService.logoutUser(req)
+		return this.authService.logoutUser(req.cookies.token)
 	}
 }

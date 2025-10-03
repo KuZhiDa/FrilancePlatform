@@ -8,6 +8,6 @@ export class TokenController {
 
     @Patch()
     async postRefresh(@Req() req: Request){
-        this.tokenService.refreshUpdate(req)
+        this.tokenService.refreshUpdate(req.cookies.token)
     }
 }
