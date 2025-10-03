@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 # compiled output
 /dist
 /build
@@ -54,3 +55,29 @@ report.[0-9]*.[0-9]*.[0-9]*.[0-9]*.json
 
 # TypeScript build info
 *.tsbuildinfo
+=======
+# Nestjs specific
+/dist
+/node_modules
+/build
+/tmp
+
+# Logs
+logs
+*.log
+npm-debug.log*
+pnpm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+lerna-debug.log*
+
+# dotenv environment variable files
+.env
+.env.development
+.env.test
+.env.production
+
+# temp directory
+.temp
+.tmp
+>>>>>>> 7539e533c20ae5ce9bc0ab2f312dd7e855ac3cb3
