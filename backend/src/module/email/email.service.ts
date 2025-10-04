@@ -4,6 +4,7 @@ import { User } from 'src/model/model.user';
 import { TokenService } from '../token/token.service';
 import { secretKey } from 'src/constant/secret';
 import { MailerService } from '@nestjs-modules/mailer';
+import { dtoForProof } from '../../dto/dto.proof';
 
 @Injectable()
 export class EmailService {
@@ -16,8 +17,8 @@ export class EmailService {
 
     //--------------Метод реализации подтверждения почты-----------------//
     async updateIsActivate(tokenEmail: string): Promise<{message: string}>{
-        let person
-
+        let person: dtoForProof
+        
         //Расшифровка токена с перехватом ошибки
         try{
             person = await this.token.proofToken(tokenEmail, secretKey.secretEmail, false)
@@ -28,6 +29,7 @@ export class EmailService {
             else if(err.name === 'JsonWebTokenError'){
                 throw new HttpException('Токен не валиден.', HttpStatus.FORBIDDEN)
             }
+            throw err
         }
 
         //Поиск юзера с такими данными

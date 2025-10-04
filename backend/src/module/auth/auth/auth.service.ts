@@ -1,15 +1,16 @@
 import { HttpException, HttpStatus, Injectable } from '@nestjs/common';
 import { InjectModel } from '@nestjs/sequelize';
 import { User } from 'src/model/model.user';
-import { DtoForReg } from './dto.auth/dto.register';
+import { DtoForReg } from '../dto.auth/dto.register';
 import * as bcrypt from 'bcrypt'
-import { DtoForReturn } from '../../dto/dto.return';
+import { DtoForReturn } from '../../../dto/dto.return';
 import { Op } from 'sequelize';
-import { DtoForLog } from './dto.auth/dto.login';
+import { DtoForLog } from '../dto.auth/dto.login';
 import { secretKey } from 'src/constant/secret';
 import { RefreshToken } from 'src/model/model.token';
-import { TokenService } from '../token/token.service';
-import { EmailService } from '../email/email.service';
+import { TokenService } from '../../token/token.service';
+import { EmailService } from '../../email/email.service';
+import { dtoForProof } from 'src/dto/dto.proof';
 
 @Injectable()
 export class AuthService {
@@ -102,7 +103,7 @@ export class AuthService {
 
     //---------------Метод реализации выхода------------------//
     async logoutUser(refreshToken: string): Promise<{message: string}>{
-		let person
+		let person : dtoForProof
 
 		//Проверка наличия refresh токена
 		if (refreshToken) {

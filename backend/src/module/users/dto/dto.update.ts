@@ -1,22 +1,27 @@
-import { IsOptional, Length, Matches, ValidateIf } from "class-validator"
+import { IsOptional, Length, Matches } from "class-validator"
 
+//Класс DTO для обновления информации юзера
 export class dtoForUpdate {
 	
+	//Если поле не пустое, проверка длинны и шаблона строки
     @IsOptional()
 	@Length(4, 15, {message:'Вы ввели не корректный username. Username должен содержать от 4 до 15 символов.',})
 	@Matches(/^[A-Za-z0-9]+$/, {message:'Username должен содержать только буквы латинского алфавита и цифры.',})
 	username?: string
 
+	//Если поле не пустое, проверка длинны и шаблона строки
 	@IsOptional()
 	@Length(11, 11, {message:'Вы ввели не корректный номер телефона. Номер телефона состоит из 11 цифр.',})
 	@Matches(/^8[0-9]+$/, { message: '' })
 	phone_number?: string
 
+	//Если поле не пустое, проверка длинны и шаблона строки
     @IsOptional()
     @Length(2, 100, {message: 'Вы ввели не корректный from_country. From_country должен содержать от 2 до 100 символов.'})
 	@Matches(/^([A-Z][a-z]+|[А-Я][а-я]+)$/, {message: 'From_country должен начинаться с заглавной буквы, и содержать символы латиницы или кириллицы.',})
 	from_country?: string
 
+	//Если поле не пустое, проверка длинны и шаблона строки
     @IsOptional()
     @Length(2, 100, {message: 'Вы ввели не корректный from_city. From_city должен содержать от 2 до 100 символов.'})
     @Matches(/^([A-Z][a-z]+|[А-Я][а-я]+)$/, {message: 'From_city должен начинаться с заглавной буквы, и содержать символы латиницы или кириллицы.'})

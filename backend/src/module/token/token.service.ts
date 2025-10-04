@@ -2,7 +2,7 @@ import { HttpException, HttpStatus, Injectable } from '@nestjs/common';
 import { JwtService } from '@nestjs/jwt';
 import { InjectModel } from '@nestjs/sequelize';
 import { RefreshToken } from 'src/model/model.token';
-import { dtoForProof } from './dto/dto.proof';
+import { dtoForProof } from '../../dto//dto.proof';
 import { secretKey } from 'src/constant/secret';
 
 @Injectable()
@@ -41,25 +41,33 @@ export class TokenService {
 		}
 	}
 
-    //-----------------Метод реализации обновления refresh токена---------------------//
+    //-----------------Метод реализации обновления access токена---------------------//
     async refreshUpdate(tokenRefresh: string){
+        //Проверка наличия токена
         if(!tokenRefresh){
             throw new HttpException('Refresh токена нет.', HttpStatus.UNAUTHORIZED)
         }
 
+        //Валидация токена с перехватом ошибки
         let person: dtoForProof
         try{
             person = await this.proofToken(tokenRefresh, secretKey.secretRefresh, false)
-            const tokenAccess = await this.createToken({ id_user: person.id_user, role_user: person.role_user }, secretKey.secretAccess, '1h')
-            return tokenAccess
         }catch(err){
+            //Определение типа ошибки
             if(err.name === 'TokenExpiredError'){
+                //Если ошибка в истечении, то проверяем на корректность и удаляем токен
                 person = await this.proofToken(tokenRefresh, secretKey.secretRefresh, true)
                 await this.refreshTokenModel.destroy({where: {id: person.id, id_user: person.id_user}})
                 throw new HttpException('Срок действия Refresh токена истек.', HttpStatus.UNAUTHORIZED)
             }else if(err.name === 'JsonWebTokenError'){
                 throw new HttpException('Refresh токен не верный.', HttpStatus.UNAUTHORIZED)
             }
+            throw err
         }
+        //Если refresh токен валиден то создаем access
+        const tokenAccess = await this.createToken({ id_user: person.id_user, role_user: person.role_user }, secretKey.secretAccess, '1h')
+            
+        //Возврат access токена клиенту
+        return tokenAccess
     }
 }

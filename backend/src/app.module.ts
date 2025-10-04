@@ -2,7 +2,7 @@ import { MiddlewareConsumer, Module, NestModule } from "@nestjs/common";
 import { SequelizeModule } from "@nestjs/sequelize";
 import { User } from "./model/model.user";
 import { RefreshToken } from "./model/model.token";
-import { AuthModule } from "./module/auth/auth.module";
+import { AuthModule } from "./module/auth/auth/auth.module";
 import { PassportModule } from "@nestjs/passport";
 import { JwtStrategy } from "./strategy/strategy.jwt";
 import { JwtAccessAuthGuard } from "./guard/guard.jwt";
@@ -13,6 +13,7 @@ import { ConfigModule } from "@nestjs/config";
 import { MailerModule } from "@nestjs-modules/mailer";
 import { EmailModule } from './module/email/email.module';
 import { TokenModule } from './module/token/token.module';
+import { ResetPasswordModule } from './module/auth/reset_password/reset_password.module';
 
 
 @Module({
@@ -46,6 +47,7 @@ import { TokenModule } from './module/token/token.module';
 		}),
 		EmailModule,
 		TokenModule,
+		ResetPasswordModule,
 	],
 })
 export class appModule implements NestModule {

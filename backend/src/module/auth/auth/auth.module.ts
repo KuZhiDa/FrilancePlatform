@@ -4,8 +4,8 @@ import { AuthController } from './auth.controller';
 import { SequelizeModule } from '@nestjs/sequelize';
 import { RefreshToken } from 'src/model/model.token';
 import { User } from 'src/model/model.user';
-import { TokenModule } from '../token/token.module';
-import { EmailModule } from '../email/email.module';
+import { TokenModule } from '../../token/token.module';
+import { EmailModule } from '../../email/email.module';
 
 @Module({
   providers: [AuthService],
