@@ -4,6 +4,6 @@ import { dtoForUpdate } from './dto/dto.update';
 export declare class UsersService {
     private usersModel;
     constructor(usersModel: typeof User);
-    getUser(id: any): Promise<DtoForReturn>;
+    getUser(id: number): Promise<DtoForReturn>;
     updateUser(dto: dtoForUpdate, id: any): Promise<dtoForUpdate>;
 }

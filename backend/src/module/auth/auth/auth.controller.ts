@@ -1,8 +1,8 @@
 import { Body, Controller, Post, ValidationPipe, Res, UseGuards, Req } from '@nestjs/common';
 import { AuthService } from './auth.service';
-import { DtoForReg } from './dto.auth/dto.register';
+import { DtoForReg } from './dto/dto.register';
 import type { Response, Request } from 'express';
-import { DtoForLog } from './dto.auth/dto.login';
+import { DtoForLog } from './dto/dto.login';
 import { LoginGuard } from 'src/guard/guard.login';
 
 @Controller('auth')

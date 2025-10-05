@@ -1,5 +1,5 @@
 export declare class dtoForProof {
     id?: number;
-    id_user: number;
-    role_user?: number;
+    id_user?: number;
+    role_user?: string;
 }

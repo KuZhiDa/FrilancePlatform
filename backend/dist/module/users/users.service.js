@@ -22,30 +22,21 @@ let UsersService = class UsersService {
         this.usersModel = usersModel;
     }
     async getUser(id) {
-        try {
-            const user = (await this.usersModel.findOne({ where: { id: id } }))?.dataValues;
-            if (!user) {
-                throw new common_1.HttpException('Пользователя с таким id не существует.', common_1.HttpStatus.NOT_FOUND);
-            }
-            const { password, ...data } = user;
-            return data;
+        const user = (await this.usersModel.findOne({ where: { id: id }
+        }))?.dataValues;
+        if (!user) {
+            throw new common_1.HttpException('Пользователя с таким id не существует.', common_1.HttpStatus.NOT_FOUND);
         }
-        catch (err) {
-            throw err;
-        }
+        const { password, ...data } = user;
+        return data;
     }
     async updateUser(dto, id) {
-        try {
-            const user = await this.usersModel.findOne({ where: { id: id } });
-            if (!user) {
-                throw new common_1.HttpException('Пользователя с таким id не существует.', common_1.HttpStatus.NOT_FOUND);
-            }
-            await this.usersModel.update(dto, { where: { id: id } });
-            return dto;
+        const user = await this.usersModel.findOne({ where: { id: id } });
+        if (!user) {
+            throw new common_1.HttpException('Пользователя с таким id не существует.', common_1.HttpStatus.NOT_FOUND);
         }
-        catch (err) {
-            throw err;
-        }
+        await this.usersModel.update(dto, { where: { id: id } });
+        return dto;
     }
 };
 exports.UsersService = UsersService;

@@ -11,7 +11,7 @@ const common_1 = require("@nestjs/common");
 const sequelize_1 = require("@nestjs/sequelize");
 const model_user_1 = require("./model/model.user");
 const model_token_1 = require("./model/model.token");
-const auth_module_1 = require("./module/auth/auth.module");
+const auth_module_1 = require("./module/auth/auth/auth.module");
 const passport_1 = require("@nestjs/passport");
 const strategy_jwt_1 = require("./strategy/strategy.jwt");
 const guard_jwt_1 = require("./guard/guard.jwt");
@@ -22,6 +22,7 @@ const config_1 = require("@nestjs/config");
 const mailer_1 = require("@nestjs-modules/mailer");
 const email_module_1 = require("./module/email/email.module");
 const token_module_1 = require("./module/token/token.module");
+const precovery_module_1 = require("./module/auth/password_recovery/precovery.module");
 let appModule = class appModule {
     configure(consumer) {
         consumer.apply(middleware_auth_1.MiddlewareAuthJwt).forRoutes('/auth/login');
@@ -44,9 +45,9 @@ exports.appModule = appModule = __decorate([
                     secure: false,
                     auth: {
                         user: process.env.EMAIL_LOGIN,
-                        pass: process.env.EMAIL_PASSWORD
-                    }
-                }
+                        pass: process.env.EMAIL_PASSWORD,
+                    },
+                },
             }),
             sequelize_1.SequelizeModule.forRoot({
                 dialect: 'postgres',
@@ -60,6 +61,7 @@ exports.appModule = appModule = __decorate([
             }),
             email_module_1.EmailModule,
             token_module_1.TokenModule,
+            precovery_module_1.PasswordRecoveryModule,
         ],
     })
 ], appModule);

@@ -11,10 +11,10 @@ const common_1 = require("@nestjs/common");
 const auth_service_1 = require("./auth.service");
 const auth_controller_1 = require("./auth.controller");
 const sequelize_1 = require("@nestjs/sequelize");
-const model_token_1 = require("../../model/model.token");
-const model_user_1 = require("../../model/model.user");
-const token_module_1 = require("../token/token.module");
-const email_module_1 = require("../email/email.module");
+const model_token_1 = require("../../../model/model.token");
+const model_user_1 = require("../../../model/model.user");
+const token_module_1 = require("../../token/token.module");
+const email_module_1 = require("../../email/email.module");
 let AuthModule = class AuthModule {
 };
 exports.AuthModule = AuthModule;

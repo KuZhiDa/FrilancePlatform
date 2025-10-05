@@ -1,10 +1,10 @@
 import { User } from 'src/model/model.user';
-import { DtoForReg } from './dto.auth/dto.register';
-import { DtoForReturn } from '../../dto/dto.return';
-import { DtoForLog } from './dto.auth/dto.login';
+import { DtoForReg } from './dto/dto.register';
+import { DtoForReturn } from '../../../dto/dto.return';
+import { DtoForLog } from './dto/dto.login';
 import { RefreshToken } from 'src/model/model.token';
-import { TokenService } from '../token/token.service';
-import { EmailService } from '../email/email.service';
+import { TokenService } from '../../token/token.service';
+import { EmailService } from '../../email/email.service';
 export declare class AuthService {
     private userModel;
     private refreshTokenModel;

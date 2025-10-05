@@ -40,9 +40,9 @@ let EmailService = class EmailService {
             else if (err.name === 'JsonWebTokenError') {
                 throw new common_1.HttpException('Токен не валиден.', common_1.HttpStatus.FORBIDDEN);
             }
+            throw err;
         }
-        const user = (await this.userModel.findOne({ where: { id: person.id_user }
-        }))?.dataValues;
+        const user = (await this.userModel.findOne({ where: { id: person.id_user } }))?.dataValues;
         if (!user) {
             throw new common_1.HttpException('Пользователь не найден.', common_1.HttpStatus.FORBIDDEN);
         }
@@ -56,7 +56,12 @@ let EmailService = class EmailService {
         if (!process.env.EMAIL_LOGIN) {
             throw new common_1.HttpException('Не указана email отправителя.', common_1.HttpStatus.FORBIDDEN);
         }
-        this.nodemailer.sendMail({ from: process.env.EMAIL_LOGIN, to, subject, text });
+        this.nodemailer.sendMail({
+            from: process.env.EMAIL_LOGIN,
+            to,
+            subject,
+            text,
+        });
     }
 };
 exports.EmailService = EmailService;

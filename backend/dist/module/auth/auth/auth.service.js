@@ -48,13 +48,13 @@ Object.defineProperty(exports, "__esModule", { value: true });
 exports.AuthService = void 0;
 const common_1 = require("@nestjs/common");
 const sequelize_1 = require("@nestjs/sequelize");
-const model_user_1 = require("../../model/model.user");
+const model_user_1 = require("../../../model/model.user");
 const bcrypt = __importStar(require("bcrypt"));
 const sequelize_2 = require("sequelize");
-const secret_1 = require("../../constant/secret");
-const model_token_1 = require("../../model/model.token");
-const token_service_1 = require("../token/token.service");
-const email_service_1 = require("../email/email.service");
+const secret_1 = require("../../../constant/secret");
+const model_token_1 = require("../../../model/model.token");
+const token_service_1 = require("../../token/token.service");
+const email_service_1 = require("../../email/email.service");
 let AuthService = class AuthService {
     userModel;
     refreshTokenModel;

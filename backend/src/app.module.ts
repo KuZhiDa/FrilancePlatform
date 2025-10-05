@@ -13,7 +13,7 @@ import { ConfigModule } from "@nestjs/config";
 import { MailerModule } from "@nestjs-modules/mailer";
 import { EmailModule } from './module/email/email.module';
 import { TokenModule } from './module/token/token.module';
-import { ResetPasswordModule } from './module/auth/reset_password/reset_password.module';
+import { PasswordRecoveryModule } from "./module/auth/password_recovery/precovery.module";
 
 
 @Module({
@@ -25,15 +25,15 @@ import { ResetPasswordModule } from './module/auth/reset_password/reset_password
 		JwtModule,
 		ConfigModule.forRoot({ isGlobal: true, envFilePath: '.env' }),
 		MailerModule.forRoot({
-			transport:{
+			transport: {
 				host: process.env.EMAIL_HOST,
 				port: Number(process.env.EMAIL_PORT),
 				secure: false,
 				auth: {
 					user: process.env.EMAIL_LOGIN,
-					pass: process.env.EMAIL_PASSWORD
-				}
-			}
+					pass: process.env.EMAIL_PASSWORD,
+				},
+			},
 		}),
 		SequelizeModule.forRoot({
 			dialect: 'postgres',
@@ -47,7 +47,7 @@ import { ResetPasswordModule } from './module/auth/reset_password/reset_password
 		}),
 		EmailModule,
 		TokenModule,
-		ResetPasswordModule,
+		PasswordRecoveryModule,
 	],
 })
 export class appModule implements NestModule {
