@@ -55,14 +55,17 @@ const secret_1 = require("../../../constant/secret");
 const model_token_1 = require("../../../model/model.token");
 const token_service_1 = require("../../token/token.service");
 const email_service_1 = require("../../email/email.service");
+const _2fa_service_1 = require("../tf_auth/2fa.service");
 let AuthService = class AuthService {
     userModel;
     refreshTokenModel;
+    redis2faService;
     token;
     emailService;
-    constructor(userModel, refreshTokenModel, token, emailService) {
+    constructor(userModel, refreshTokenModel, redis2faService, token, emailService) {
         this.userModel = userModel;
         this.refreshTokenModel = refreshTokenModel;
+        this.redis2faService = redis2faService;
         this.token = token;
         this.emailService = emailService;
     }
@@ -74,37 +77,37 @@ let AuthService = class AuthService {
                     [sequelize_2.Op.or]: [
                         { username: dto.username },
                         { email: dto.email },
-                        { phone_number: dto.phone_number }
-                    ]
-                }
+                        { phone_number: dto.phone_number },
+                    ],
+                },
             });
         }
         else {
             data = await this.userModel.findOne({
                 where: {
-                    [sequelize_2.Op.or]: [
-                        { username: dto.username },
-                        { email: dto.email }
-                    ]
-                }
+                    [sequelize_2.Op.or]: [{ username: dto.username }, { email: dto.email }],
+                },
             });
         }
         if (data) {
             throw new common_1.HttpException('Пользователь с такими данными уже существует.', common_1.HttpStatus.BAD_REQUEST);
         }
         dto.password = await bcrypt.hash(dto.password, 10);
-        const result = await this.userModel.create(dto);
-        const { password, ...person } = result.dataValues;
+        const result = await this.userModel.create(dto, { raw: true });
+        const { password, ...person } = result;
         const tokenEmail = await this.token.createToken({ id_user: person.id }, secret_1.secretKey.secretEmail, '24h');
         await this.emailService.messageToEmail(dto.email, 'Подтверждение email.', `Подтвердите email перейдя по ссылке: http://localhost:${process.env.PORT}/api/email/proof?token=${tokenEmail}`);
         return person;
     }
     async loginUser(dto) {
-        const data = (await this.userModel.findOne({ where: { [sequelize_2.Op.or]: [
+        const data = (await this.userModel.findOne({
+            where: {
+                [sequelize_2.Op.or]: [
                     { username: dto.login },
                     { email: dto.login },
-                    { phone_number: dto.login }
-                ] }
+                    { phone_number: dto.login },
+                ],
+            },
         }))?.dataValues;
         if (!data) {
             throw new common_1.HttpException('Пользователя с такими данными не существует.', common_1.HttpStatus.BAD_REQUEST);
@@ -113,13 +116,23 @@ let AuthService = class AuthService {
         if (!result) {
             throw new common_1.HttpException('Пароль не верный.', common_1.HttpStatus.BAD_REQUEST);
         }
-        const resultId = (await this.refreshTokenModel.create({ id_user: data.id, token: '' })).dataValues.id;
-        const accessToken = await this.token.createToken({ id_user: data.id, role_user: data.role }, secret_1.secretKey.secretAccess, '1h');
-        const refreshToken = await this.token.createToken({ id: resultId, id_user: data.id, role_user: data.role }, secret_1.secretKey.secretRefresh, '30d');
-        const refreshTokenHash = await bcrypt.hash(refreshToken, 10);
-        await this.refreshTokenModel.update({ token: refreshTokenHash }, { where: { id: resultId }
-        });
-        return { accessToken, refreshToken };
+        if (data.is2Fa) {
+            const codeFor2FA = await this.redis2faService.genCode(data.id);
+            this.emailService.messageToEmail(data.email, 'Код для двухфакторной аутентификации.', `Подтвердите вход с помощью этого кода: ${codeFor2FA}`);
+            return {
+                is2Fa: true,
+                message: 'Сообщение направленно на почту для подтверждения входа.',
+            };
+        }
+        else {
+            const { accessToken, refreshToken } = await this.token.genAccessRefresh(data.id, data.role);
+            return {
+                is2Fa: false,
+                accessToken,
+                refreshToken,
+                message: `Пользователь ${data.username} авторизован.`,
+            };
+        }
     }
     async logoutUser(refreshToken) {
         let person;
@@ -145,7 +158,8 @@ exports.AuthService = AuthService = __decorate([
     (0, common_1.Injectable)(),
     __param(0, (0, sequelize_1.InjectModel)(model_user_1.User)),
     __param(1, (0, sequelize_1.InjectModel)(model_token_1.RefreshToken)),
-    __metadata("design:paramtypes", [Object, Object, token_service_1.TokenService,
+    __metadata("design:paramtypes", [Object, Object, _2fa_service_1.TwoFAService,
+        token_service_1.TokenService,
         email_service_1.EmailService])
 ], AuthService);
 //# sourceMappingURL=auth.service.js.map

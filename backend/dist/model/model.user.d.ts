@@ -1,9 +1,10 @@
-import { Model } from "sequelize-typescript";
+import { Model } from 'sequelize-typescript';
 interface userInterface {
     username: string;
     email: string;
     phone_number?: string;
     password: string;
+    is2Fa: boolean;
 }
 export declare class User extends Model<User, userInterface> {
     username: string;
@@ -14,5 +15,6 @@ export declare class User extends Model<User, userInterface> {
     from_city: string;
     password: string;
     isActivate: boolean;
+    is2Fa: boolean;
 }
 export {};

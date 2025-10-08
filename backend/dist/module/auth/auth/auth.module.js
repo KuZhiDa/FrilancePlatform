@@ -15,6 +15,7 @@ const model_token_1 = require("../../../model/model.token");
 const model_user_1 = require("../../../model/model.user");
 const token_module_1 = require("../../token/token.module");
 const email_module_1 = require("../../email/email.module");
+const _2fa_module_1 = require("../tf_auth/2fa.module");
 let AuthModule = class AuthModule {
 };
 exports.AuthModule = AuthModule;
@@ -22,7 +23,12 @@ exports.AuthModule = AuthModule = __decorate([
     (0, common_1.Module)({
         providers: [auth_service_1.AuthService],
         controllers: [auth_controller_1.AuthController],
-        imports: [sequelize_1.SequelizeModule.forFeature([model_user_1.User, model_token_1.RefreshToken]), token_module_1.TokenModule, email_module_1.EmailModule]
+        imports: [
+            sequelize_1.SequelizeModule.forFeature([model_user_1.User, model_token_1.RefreshToken]),
+            token_module_1.TokenModule,
+            email_module_1.EmailModule,
+            _2fa_module_1.TwoFAModule,
+        ],
     })
 ], AuthModule);
 //# sourceMappingURL=auth.module.js.map

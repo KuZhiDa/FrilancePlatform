@@ -4,6 +4,7 @@ import { InjectModel } from '@nestjs/sequelize';
 import { RefreshToken } from 'src/model/model.token';
 import { dtoForProof } from '../../dto//dto.proof';
 import { secretKey } from 'src/constant/secret';
+import * as bcrypt from 'bcrypt';
 
 @Injectable()
 export class TokenService {
@@ -12,6 +13,35 @@ export class TokenService {
     @InjectModel(RefreshToken) private refreshTokenModel: typeof RefreshToken,
     private jwt: JwtService,
   ) {}
+
+  //------------Метод реализации генерации Access и Refresh токена---------------//
+  async genAccessRefresh(id_user, role_user) {
+    const resultId = (
+      await this.refreshTokenModel.create({ id_user: id_user, token: '' })
+    ).dataValues.id;
+    const accessToken = await this.createToken(
+      { id_user: id_user, role_user: role_user },
+      secretKey.secretAccess,
+      '1h',
+    );
+    const refreshToken = await this.createToken(
+      { id: resultId, id_user: id_user, role_user: role_user },
+      secretKey.secretRefresh,
+      '30d',
+    );
+
+    //Хеширование пароля
+    const refreshTokenHash = await bcrypt.hash(refreshToken, 10);
+
+    //Обновление refresh токена в бд и помещение его в cookie
+    await this.refreshTokenModel.update(
+      { token: refreshTokenHash },
+      { where: { id: resultId } },
+    );
+
+    //Возврат токенов на клиент
+    return { accessToken, refreshToken };
+  }
 
   //--------------------Метод реализации создания токена--------------------------//
   async createToken(person: object, secret: string, time: string) {

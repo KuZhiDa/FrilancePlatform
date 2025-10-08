@@ -1,4 +1,9 @@
-import { HttpException, HttpStatus, Injectable } from '@nestjs/common';
+import {
+  HttpException,
+  HttpStatus,
+  Injectable,
+  Redirect,
+} from '@nestjs/common';
 import { InjectModel } from '@nestjs/sequelize';
 import { User } from 'src/model/model.user';
 import { DtoForReg } from './dto/dto.register';
@@ -11,6 +16,9 @@ import { RefreshToken } from 'src/model/model.token';
 import { TokenService } from '../../token/token.service';
 import { EmailService } from '../../email/email.service';
 import { dtoForProof } from 'src/dto/dto.proof';
+import { TwoFAService } from 'src/module/auth/tf_auth/2fa.service';
+import { DtoFor2FaReturn } from './dto/dto.tfreturn';
+import { raw } from 'express';
 
 @Injectable()
 export class AuthService {
@@ -18,6 +26,7 @@ export class AuthService {
   constructor(
     @InjectModel(User) private userModel: typeof User,
     @InjectModel(RefreshToken) private refreshTokenModel: typeof RefreshToken,
+    private redis2faService: TwoFAService,
     private token: TokenService,
     private emailService: EmailService,
   ) {}
@@ -52,8 +61,10 @@ export class AuthService {
 
     //Обработка результата
     dto.password = await bcrypt.hash(dto.password, 10);
-    const result = await this.userModel.create(dto);
-    const { password, ...person } = result.dataValues;
+    const result = await this.userModel.create(dto, { raw: true });
+    const { password, ...person } = result;
+
+    //Создание токена для подтверждения email
     const tokenEmail = await this.token.createToken(
       { id_user: person.id },
       secretKey.secretEmail,
@@ -72,9 +83,7 @@ export class AuthService {
   }
 
   //----------------------------Метод реализации авторизации---------------------------//
-  async loginUser(
-    dto: DtoForLog,
-  ): Promise<{ accessToken: string; refreshToken: string }> {
+  async loginUser(dto: DtoForLog): Promise<DtoFor2FaReturn> {
     //Проверка на существование пользователя
     const data = (
       await this.userModel.findOne({
@@ -100,28 +109,36 @@ export class AuthService {
       throw new HttpException('Пароль не верный.', HttpStatus.BAD_REQUEST);
     }
 
-    //Генерация токенов Refresh и Access
-    const resultId = (
-      await this.refreshTokenModel.create({ id_user: data.id, token: '' })
-    ).dataValues.id;
-    const accessToken = await this.token.createToken(
-      { id_user: data.id, role_user: data.role },
-      secretKey.secretAccess,
-      '1h',
-    );
-    const refreshToken = await this.token.createToken(
-      { id: resultId, id_user: data.id, role_user: data.role },
-      secretKey.secretRefresh,
-      '30d',
-    );
-    const refreshTokenHash = await bcrypt.hash(refreshToken, 10);
-    await this.refreshTokenModel.update(
-      { token: refreshTokenHash },
-      { where: { id: resultId } },
-    );
+    //Проверка включена ли у пользователя двухфакторная аутентификация
+    if (data.is2Fa) {
+      //Если есть двухфакторная аутентификация генерация кода и отправка сообщения на почту
+      const codeFor2FA = await this.redis2faService.genCode(data.id);
+      this.emailService.messageToEmail(
+        data.email,
+        'Код для двухфакторной аутентификации.',
+        `Подтвердите вход с помощью этого кода: ${codeFor2FA}`,
+      );
 
-    //Возврат токенов на клиент
-    return { accessToken, refreshToken };
+      //Возврат на клиент соответствующее сообщение
+      return {
+        is2Fa: true,
+        message: 'Сообщение направленно на почту для подтверждения входа.',
+      };
+    } else {
+      //Если нет двухфакторной аутентификации генерация токенов Refresh и Access
+      const { accessToken, refreshToken } = await this.token.genAccessRefresh(
+        data.id,
+        data.role,
+      );
+
+      //Возврат токенов на клиент
+      return {
+        is2Fa: false,
+        accessToken,
+        refreshToken,
+        message: `Пользователь ${data.username} авторизован.`,
+      };
+    }
   }
 
   //---------------Метод реализации выхода------------------//

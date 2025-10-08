@@ -3,10 +3,10 @@ import { EmailService } from './email.service';
 
 @Controller('email')
 export class EmailController {
-	constructor(private emailService: EmailService) {}
+  constructor(private emailService: EmailService) {}
 
-	@Get('proof')
-	async patchIsActivate(@Query('token') token: string) {
-		return this.emailService.updateIsActivate(token)
-	}
+  @Get('proof')
+  async getIsActivate(@Query('token') token: string) {
+    return this.emailService.updateIsActivate(token);
+  }
 }

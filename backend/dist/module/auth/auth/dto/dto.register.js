@@ -16,12 +16,17 @@ class DtoForReg {
     email;
     phone_number;
     password;
+    is2Fa;
 }
 exports.DtoForReg = DtoForReg;
 __decorate([
     (0, class_validator_1.IsNotEmpty)({ message: 'Поле username не должно быть пустым' }),
-    (0, class_validator_1.Length)(4, 15, { message: 'Вы ввели не корректный username. Username должен содержать от 4 до 15 символов.' }),
-    (0, class_validator_1.Matches)(/^[0-9a-zA-Z]+$/, { message: 'Username должен содержать только буквы латинского алфавита и цифры.' }),
+    (0, class_validator_1.Length)(4, 15, {
+        message: 'Вы ввели не корректный username. Username должен содержать от 4 до 15 символов.',
+    }),
+    (0, class_validator_1.Matches)(/^[0-9a-zA-Z]+$/, {
+        message: 'Username должен содержать только буквы латинского алфавита и цифры.',
+    }),
     __metadata("design:type", String)
 ], DtoForReg.prototype, "username", void 0);
 __decorate([
@@ -31,14 +36,22 @@ __decorate([
 ], DtoForReg.prototype, "email", void 0);
 __decorate([
     (0, class_validator_1.IsOptional)(),
-    (0, class_validator_1.Length)(11, 11, { message: 'Вы ввели не корректный номер телефона. Номер телефона состоит из 11 цифр.' }),
-    (0, class_validator_1.Matches)(/^8[0-9]+$/, { message: 'Номер телефона должен содержать только цифры.' }),
+    (0, class_validator_1.Length)(11, 11, {
+        message: 'Вы ввели не корректный номер телефона. Номер телефона состоит из 11 цифр.',
+    }),
+    (0, class_validator_1.Matches)(/^8[0-9]+$/, {
+        message: 'Номер телефона должен содержать только цифры.',
+    }),
     __metadata("design:type", String)
 ], DtoForReg.prototype, "phone_number", void 0);
 __decorate([
     (0, class_validator_1.IsNotEmpty)({ message: 'Поле password не должно быть пустым' }),
-    (0, class_validator_1.Length)(8, 16, { message: 'Вы ввели не корректный пароль. Пароль должен содержать от 8 до 16 символов.' }),
-    (0, class_validator_1.Matches)(/^(?=.*[0-9])(?=.*[a-z])(?=.*[A-Z])([a-zA-Z0-9])+$/, { message: 'Пароль должен состоять хотя-бы из одной цифры, заглавной и прописной буквы. И содержать только буквы латинского алфавита и цифры.' }),
+    (0, class_validator_1.Length)(8, 16, {
+        message: 'Вы ввели не корректный пароль. Пароль должен содержать от 8 до 16 символов.',
+    }),
+    (0, class_validator_1.Matches)(/^(?=.*[0-9])(?=.*[a-z])(?=.*[A-Z])([a-zA-Z0-9])+$/, {
+        message: 'Пароль должен состоять хотя-бы из одной цифры, заглавной и прописной буквы. И содержать только буквы латинского алфавита и цифры.',
+    }),
     __metadata("design:type", String)
 ], DtoForReg.prototype, "password", void 0);
 //# sourceMappingURL=dto.register.js.map

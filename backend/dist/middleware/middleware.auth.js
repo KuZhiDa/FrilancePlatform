@@ -18,29 +18,29 @@ let MiddlewareAuthJwt = class MiddlewareAuthJwt {
     constructor(jwt) {
         this.jwt = jwt;
     }
-    async use(req, next) {
+    async use(req, res, next) {
         const tokenAccess = req.headers.authorization?.split(' ')[1];
         if (!tokenAccess) {
             req.messageAuth = {
-                message: 'No auth'
+                message: 'No auth',
             };
             return next();
         }
         try {
             await this.jwt.verify(tokenAccess, { secret: secret_1.secretKey.secretAccess });
             req.messageAuth = {
-                message: 'Auth'
+                message: 'Auth',
             };
         }
         catch (err) {
             if (err.name === 'TokenExpiredError') {
                 req.messageAuth = {
-                    message: 'Time over access'
+                    message: 'Time over access',
                 };
             }
             else if (err.name === 'JsonWebTokenError') {
                 req.messageAuth = {
-                    message: 'Access is not'
+                    message: 'Access is not',
                 };
             }
             else {

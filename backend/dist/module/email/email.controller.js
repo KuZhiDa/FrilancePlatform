@@ -20,7 +20,7 @@ let EmailController = class EmailController {
     constructor(emailService) {
         this.emailService = emailService;
     }
-    async patchIsActivate(token) {
+    async getIsActivate(token) {
         return this.emailService.updateIsActivate(token);
     }
 };
@@ -31,7 +31,7 @@ __decorate([
     __metadata("design:type", Function),
     __metadata("design:paramtypes", [String]),
     __metadata("design:returntype", Promise)
-], EmailController.prototype, "patchIsActivate", null);
+], EmailController.prototype, "getIsActivate", null);
 exports.EmailController = EmailController = __decorate([
     (0, common_1.Controller)('email'),
     __metadata("design:paramtypes", [email_service_1.EmailService])

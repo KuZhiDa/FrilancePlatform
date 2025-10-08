@@ -6,9 +6,9 @@ export declare class AuthController {
     private authService;
     constructor(authService: AuthService);
     postRegister(body: DtoForReg): Promise<import("../../../dto/dto.return").DtoForReturn>;
-    postLogin(body: DtoForLog, res: Response): Promise<{
+    postLogin(body: DtoForLog, res: Response): Promise<string | {
+        access: string | undefined;
         message: string;
-        Access: string;
     }>;
     postLogout(req: Request): Promise<{
         message: string;

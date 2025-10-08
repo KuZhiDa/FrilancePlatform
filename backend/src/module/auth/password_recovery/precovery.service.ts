@@ -9,7 +9,7 @@ import { TokenService } from 'src/module/token/token.service';
 import { EmailService } from 'src/module/email/email.service';
 import { secretKey } from 'src/constant/secret';
 import { dtoForProof } from 'src/dto/dto.proof';
-import { dtoForUpdatePassword } from './dto/dto.pupdate';
+import { dtoForUpdatePassword } from './dto/dto.update';
 import { Op } from 'sequelize';
 import * as bcrypt from 'bcrypt';
 

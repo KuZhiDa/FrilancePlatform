@@ -1,7 +1,7 @@
 import { User } from 'src/model/model.user';
 import { TokenService } from 'src/module/token/token.service';
 import { EmailService } from 'src/module/email/email.service';
-import { dtoForUpdatePassword } from './dto/dto.pupdate';
+import { dtoForUpdatePassword } from './dto/dto.update';
 export declare class PasswordRecoveryService {
     private userModel;
     private tokenService;

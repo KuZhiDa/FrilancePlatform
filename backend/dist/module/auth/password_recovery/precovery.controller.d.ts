@@ -1,5 +1,5 @@
 import { PasswordRecoveryService } from './precovery.service';
-import { dtoForUpdatePassword } from './dto/dto.pupdate';
+import { dtoForUpdatePassword } from './dto/dto.update';
 export declare class PasswordRecoveryController {
     private passwordRecoveryService;
     constructor(passwordRecoveryService: PasswordRecoveryService);

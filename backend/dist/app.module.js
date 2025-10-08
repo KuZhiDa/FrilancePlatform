@@ -23,6 +23,7 @@ const mailer_1 = require("@nestjs-modules/mailer");
 const email_module_1 = require("./module/email/email.module");
 const token_module_1 = require("./module/token/token.module");
 const precovery_module_1 = require("./module/auth/password_recovery/precovery.module");
+const ioredis_1 = require("@nestjs-modules/ioredis");
 let appModule = class appModule {
     configure(consumer) {
         consumer.apply(middleware_auth_1.MiddlewareAuthJwt).forRoutes('/auth/login');
@@ -37,6 +38,10 @@ exports.appModule = appModule = __decorate([
             auth_module_1.AuthModule,
             passport_1.PassportModule,
             jwt_1.JwtModule,
+            ioredis_1.RedisModule.forRoot({
+                type: 'single',
+                url: 'redis://127.0.0.1:6379',
+            }),
             config_1.ConfigModule.forRoot({ isGlobal: true, envFilePath: '.env' }),
             mailer_1.MailerModule.forRoot({
                 transport: {
@@ -62,6 +67,7 @@ exports.appModule = appModule = __decorate([
             email_module_1.EmailModule,
             token_module_1.TokenModule,
             precovery_module_1.PasswordRecoveryModule,
+            ioredis_1.RedisModule,
         ],
     })
 ], appModule);

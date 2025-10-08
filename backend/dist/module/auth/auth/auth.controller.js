@@ -27,9 +27,17 @@ let AuthController = class AuthController {
         return this.authService.registerUser(body);
     }
     async postLogin(body, res) {
-        const { accessToken, refreshToken } = await this.authService.loginUser(body);
-        res.cookie('token', refreshToken, { httpOnly: true, maxAge: 30 * 24 * 60 * 60 * 1000 });
-        return { message: 'Пользователь вошел в систему.', Access: accessToken };
+        const result = await this.authService.loginUser(body);
+        if (result.is2Fa) {
+            return result.message;
+        }
+        else {
+            res.cookie('token', result.refreshToken, {
+                httpOnly: true,
+                maxAge: 30 * 24 * 60 * 60 * 1000,
+            });
+            return { access: result.accessToken, message: result.message };
+        }
     }
     postLogout(req) {
         return this.authService.logoutUser(req.cookies.token);

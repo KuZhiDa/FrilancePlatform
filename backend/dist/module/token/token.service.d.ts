@@ -5,6 +5,10 @@ export declare class TokenService {
     private refreshTokenModel;
     private jwt;
     constructor(refreshTokenModel: typeof RefreshToken, jwt: JwtService);
+    genAccessRefresh(id_user: any, role_user: any): Promise<{
+        accessToken: string;
+        refreshToken: string;
+    }>;
     createToken(person: object, secret: string, time: string): Promise<string>;
     proofToken(token: string, secret: string, flag: boolean): Promise<dtoForProof>;
     refreshUpdate(tokenRefresh: string): Promise<string>;

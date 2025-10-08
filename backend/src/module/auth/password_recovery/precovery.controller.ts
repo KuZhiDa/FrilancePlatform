@@ -7,7 +7,7 @@ import {
   ValidationPipe,
 } from '@nestjs/common';
 import { PasswordRecoveryService } from './precovery.service';
-import { dtoForUpdatePassword } from './dto/dto.pupdate';
+import { dtoForUpdatePassword } from './dto/dto.update';
 
 @Controller('reset-password')
 export class PasswordRecoveryController {

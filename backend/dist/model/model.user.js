@@ -46,6 +46,10 @@ __decorate([
     (0, sequelize_typescript_1.Column)({ type: sequelize_typescript_1.DataType.BOOLEAN, defaultValue: false }),
     __metadata("design:type", Boolean)
 ], User.prototype, "isActivate", void 0);
+__decorate([
+    (0, sequelize_typescript_1.Column)({ type: sequelize_typescript_1.DataType.BOOLEAN, defaultValue: false }),
+    __metadata("design:type", Boolean)
+], User.prototype, "is2Fa", void 0);
 exports.User = User = __decorate([
     (0, sequelize_typescript_1.Table)({ tableName: 'Users' })
 ], User);

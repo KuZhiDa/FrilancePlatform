@@ -15,7 +15,7 @@ Object.defineProperty(exports, "__esModule", { value: true });
 exports.PasswordRecoveryController = void 0;
 const common_1 = require("@nestjs/common");
 const precovery_service_1 = require("./precovery.service");
-const dto_pupdate_1 = require("./dto/dto.pupdate");
+const dto_update_1 = require("./dto/dto.update");
 let PasswordRecoveryController = class PasswordRecoveryController {
     passwordRecoveryService;
     constructor(passwordRecoveryService) {
@@ -50,7 +50,7 @@ __decorate([
     (0, common_1.Post)('update'),
     __param(0, (0, common_1.Body)(new common_1.ValidationPipe())),
     __metadata("design:type", Function),
-    __metadata("design:paramtypes", [dto_pupdate_1.dtoForUpdatePassword]),
+    __metadata("design:paramtypes", [dto_update_1.dtoForUpdatePassword]),
     __metadata("design:returntype", Promise)
 ], PasswordRecoveryController.prototype, "postProofUpdate", null);
 exports.PasswordRecoveryController = PasswordRecoveryController = __decorate([
