@@ -1,13 +1,20 @@
-import { Controller, Patch, Req} from '@nestjs/common';
+import { Controller, Patch, Req, Res } from '@nestjs/common';
 import { TokenService } from './token.service';
-import type { Request } from 'express';
+import type { Request, Response } from 'express';
 
 @Controller('token')
 export class TokenController {
-    constructor(private tokenService: TokenService){}
+  constructor(private tokenService: TokenService) {}
 
-    @Patch()
-    async postRefresh(@Req() req: Request){
-        this.tokenService.refreshUpdate(req.cookies.token)
-    }
+  @Patch()
+  async postRefresh(
+    @Req() req: Request,
+    @Res({ passthrough: true }) res: Response,
+  ) {
+    const result = await this.tokenService.refreshUpdate(
+      req.cookies.token,
+      res,
+    );
+    return result;
+  }
 }

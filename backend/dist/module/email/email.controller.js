@@ -23,17 +23,27 @@ let EmailController = class EmailController {
     async getIsActivate(token) {
         return this.emailService.updateIsActivate(token);
     }
+    async PostRetryMessage(id_user) {
+        return this.emailService.messageEmail(id_user);
+    }
 };
-exports.EmailController = EmailController;
 __decorate([
-    (0, common_1.Get)('proof'),
+    (0, common_1.Put)('proof'),
     __param(0, (0, common_1.Query)('token')),
     __metadata("design:type", Function),
     __metadata("design:paramtypes", [String]),
     __metadata("design:returntype", Promise)
 ], EmailController.prototype, "getIsActivate", null);
-exports.EmailController = EmailController = __decorate([
+__decorate([
+    (0, common_1.Post)('send/:id'),
+    __param(0, (0, common_1.Param)('id')),
+    __metadata("design:type", Function),
+    __metadata("design:paramtypes", [Number]),
+    __metadata("design:returntype", Promise)
+], EmailController.prototype, "PostRetryMessage", null);
+EmailController = __decorate([
     (0, common_1.Controller)('email'),
     __metadata("design:paramtypes", [email_service_1.EmailService])
 ], EmailController);
+exports.EmailController = EmailController;
 //# sourceMappingURL=email.controller.js.map

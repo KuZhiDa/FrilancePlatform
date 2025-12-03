@@ -3,6 +3,8 @@ import { dtoForUpdate } from './dto/dto.update';
 export declare class UsersController {
     private usersService;
     constructor(usersService: UsersService);
-    getPersonalAccount(id: number): Promise<import("../../dto/dto.return").DtoForReturn>;
-    patchPersonalAccount(body: dtoForUpdate, id: number): Promise<dtoForUpdate>;
+    getPersonalInfo(id: number): Promise<Object>;
+    patchPersonalInfo(id_user: number, body: dtoForUpdate): Promise<{
+        message: string;
+    }>;
 }

@@ -1,10 +1,12 @@
 import { HttpException, HttpStatus, Injectable } from '@nestjs/common';
 import { JwtService } from '@nestjs/jwt';
 import { InjectModel } from '@nestjs/sequelize';
-import { RefreshToken } from 'src/model/model.token';
-import { dtoForProof } from '../../dto//dto.proof';
-import { secretKey } from 'src/constant/secret';
+import { RefreshToken } from 'src/model/users/token.model';
+import { dtoForProof } from '../../common/dto/dto.proof';
+import { secretKey } from 'src/common/constant/jwt.secret';
 import * as bcrypt from 'bcrypt';
+import type { Request, Response } from 'express';
+import type { Role } from 'src/common/constant/roles';
 
 @Injectable()
 export class TokenService {
@@ -15,22 +17,22 @@ export class TokenService {
   ) {}
 
   //------------Метод реализации генерации Access и Refresh токена---------------//
-  async genAccessRefresh(id_user, role_user) {
+  async genAccessRefresh(id_user: number, role_user: Role) {
     const resultId = (
       await this.refreshTokenModel.create({ id_user: id_user, token: '' })
     ).dataValues.id;
     const accessToken = await this.createToken(
-      { id_user: id_user, role_user: role_user },
+      { id_user: id_user, role_user },
       secretKey.secretAccess,
-      '1h',
+      '10m',
     );
     const refreshToken = await this.createToken(
-      { id: resultId, id_user: id_user, role_user: role_user },
+      { id: resultId, id_user: id_user, role_user },
       secretKey.secretRefresh,
-      '30d',
+      '24h',
     );
 
-    //Хеширование пароля
+    //Хеширование токена
     const refreshTokenHash = await bcrypt.hash(refreshToken, 10);
 
     //Обновление refresh токена в бд и помещение его в cookie
@@ -38,13 +40,12 @@ export class TokenService {
       { token: refreshTokenHash },
       { where: { id: resultId } },
     );
-
     //Возврат токенов на клиент
     return { accessToken, refreshToken };
   }
 
   //--------------------Метод реализации создания токена--------------------------//
-  async createToken(person: object, secret: string, time: string) {
+  async createToken(person: any, secret: string, time: string) {
     //Создание JWT токена
     const token = await this.jwt.signAsync(person, { secret, expiresIn: time });
 
@@ -78,7 +79,7 @@ export class TokenService {
   }
 
   //-----------------Метод реализации обновления access токена---------------------//
-  async refreshUpdate(tokenRefresh: string) {
+  async refreshUpdate(tokenRefresh: string, res: Response) {
     //Проверка наличия токена
     if (!tokenRefresh) {
       throw new HttpException('Refresh токена нет.', HttpStatus.UNAUTHORIZED);
@@ -93,6 +94,7 @@ export class TokenService {
         false,
       );
     } catch (err) {
+      res.clearCookie('token');
       //Определение типа ошибки
       if (err.name === 'TokenExpiredError') {
         //Если ошибка в истечении, то проверяем на корректность и удаляем токен
@@ -116,14 +118,15 @@ export class TokenService {
       }
       throw err;
     }
+
     //Если refresh токен валиден то создаем access
     const tokenAccess = await this.createToken(
       { id_user: person.id_user, role_user: person.role_user },
       secretKey.secretAccess,
-      '1h',
+      '10m',
     );
 
     //Возврат access токена клиенту
-    return tokenAccess;
+    return { access: tokenAccess };
   }
 }

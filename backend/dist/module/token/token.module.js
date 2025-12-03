@@ -12,16 +12,16 @@ const token_controller_1 = require("./token.controller");
 const token_service_1 = require("./token.service");
 const jwt_1 = require("@nestjs/jwt");
 const sequelize_1 = require("@nestjs/sequelize");
-const model_token_1 = require("../../model/model.token");
+const token_model_1 = require("../../model/users/token.model");
 let TokenModule = class TokenModule {
 };
-exports.TokenModule = TokenModule;
-exports.TokenModule = TokenModule = __decorate([
+TokenModule = __decorate([
     (0, common_1.Module)({
         controllers: [token_controller_1.TokenController],
         providers: [token_service_1.TokenService],
-        imports: [jwt_1.JwtModule, sequelize_1.SequelizeModule.forFeature([model_token_1.RefreshToken])],
-        exports: [token_service_1.TokenService]
+        imports: [jwt_1.JwtModule, sequelize_1.SequelizeModule.forFeature([token_model_1.RefreshToken])],
+        exports: [token_service_1.TokenService],
     })
 ], TokenModule);
+exports.TokenModule = TokenModule;
 //# sourceMappingURL=token.module.js.map

@@ -15,34 +15,62 @@ Object.defineProperty(exports, "__esModule", { value: true });
 exports.UsersService = void 0;
 const common_1 = require("@nestjs/common");
 const sequelize_1 = require("@nestjs/sequelize");
-const model_user_1 = require("../../model/model.user");
+const users_model_1 = require("../../model/users/users.model");
+const image_service_1 = require("../image/image.service");
 let UsersService = class UsersService {
-    usersModel;
-    constructor(usersModel) {
-        this.usersModel = usersModel;
+    userModel;
+    imageService;
+    constructor(userModel, imageService) {
+        this.userModel = userModel;
+        this.imageService = imageService;
     }
-    async getUser(id) {
-        const user = (await this.usersModel.findOne({ where: { id: id }
-        }))?.dataValues;
-        if (!user) {
-            throw new common_1.HttpException('Пользователя с таким id не существует.', common_1.HttpStatus.NOT_FOUND);
+    async getInfo(id_user) {
+        const data = await this.userModel.findOne({
+            attributes: [
+                'username',
+                'email',
+                'phone_number',
+                'rating_count',
+                'rating_sum',
+            ],
+            where: { id: id_user },
+            raw: true,
+        });
+        if (!data) {
+            throw new common_1.BadRequestException('Пользователя с таким id нет.');
         }
-        const { password, ...data } = user;
-        return data;
+        let resultData;
+        if (data.rating_count > 0) {
+            resultData = {
+                rating: data.rating_sum / data.rating_count,
+                ...data,
+            };
+        }
+        else {
+            resultData = {
+                rating: 0,
+                ...data,
+            };
+        }
+        const imageInfo = await this.imageService.getAvatar(id_user);
+        return { resultData, imageInfo };
     }
-    async updateUser(dto, id) {
-        const user = await this.usersModel.findOne({ where: { id: id } });
-        if (!user) {
-            throw new common_1.HttpException('Пользователя с таким id не существует.', common_1.HttpStatus.NOT_FOUND);
+    async updateInfo(id_user, dto) {
+        const data = await this.userModel.findOne({
+            where: { id: id_user },
+            raw: true,
+        });
+        if (!data) {
+            throw new common_1.BadRequestException('Пользователя с таким id нет.');
         }
-        await this.usersModel.update(dto, { where: { id: id } });
-        return dto;
+        await this.userModel.update(dto, { where: { id: id_user } });
+        return { message: 'Данные успешно обновлены.' };
     }
 };
-exports.UsersService = UsersService;
-exports.UsersService = UsersService = __decorate([
+UsersService = __decorate([
     (0, common_1.Injectable)(),
-    __param(0, (0, sequelize_1.InjectModel)(model_user_1.User)),
-    __metadata("design:paramtypes", [Object])
+    __param(0, (0, sequelize_1.InjectModel)(users_model_1.User)),
+    __metadata("design:paramtypes", [Object, image_service_1.ImageService])
 ], UsersService);
+exports.UsersService = UsersService;
 //# sourceMappingURL=users.service.js.map

@@ -15,45 +15,40 @@ Object.defineProperty(exports, "__esModule", { value: true });
 exports.UsersController = void 0;
 const common_1 = require("@nestjs/common");
 const users_service_1 = require("./users.service");
-const guard_jwt_1 = require("../../guard/guard.jwt");
 const dto_update_1 = require("./dto/dto.update");
-const decorator_role_1 = require("../../decorators/decorator.role");
-const enumRoles_1 = require("../../constant/enumRoles");
-const guard_roles_1 = require("../../guard/guard.roles");
+const guard_jwt_1 = require("../../common/guard/guard.jwt");
 let UsersController = class UsersController {
     usersService;
     constructor(usersService) {
         this.usersService = usersService;
     }
-    async getPersonalAccount(id) {
-        return this.usersService.getUser(id);
+    async getPersonalInfo(id) {
+        return await this.usersService.getInfo(id);
     }
-    async patchPersonalAccount(body, id) {
-        return this.usersService.updateUser(body, id);
+    async patchPersonalInfo(id_user, body) {
+        return await this.usersService.updateInfo(id_user, body);
     }
 };
-exports.UsersController = UsersController;
 __decorate([
-    (0, common_1.UseGuards)(guard_jwt_1.JwtAccessAuthGuard, guard_roles_1.RolesGuard),
-    (0, decorator_role_1.Role)(enumRoles_1.Roles.Executor),
-    (0, common_1.Get)('personAcc/:id'),
+    (0, common_1.UseGuards)(guard_jwt_1.JwtAccessAuthGuard),
+    (0, common_1.Get)('info/:id'),
     __param(0, (0, common_1.Param)('id')),
     __metadata("design:type", Function),
     __metadata("design:paramtypes", [Number]),
     __metadata("design:returntype", Promise)
-], UsersController.prototype, "getPersonalAccount", null);
+], UsersController.prototype, "getPersonalInfo", null);
 __decorate([
     (0, common_1.UseGuards)(guard_jwt_1.JwtAccessAuthGuard),
-    (0, common_1.UsePipes)(new common_1.ValidationPipe()),
-    (0, common_1.Patch)('personAcc/:id'),
-    __param(0, (0, common_1.Body)()),
-    __param(1, (0, common_1.Param)('id')),
+    (0, common_1.Patch)('update-info/:id'),
+    __param(0, (0, common_1.Param)('id')),
+    __param(1, (0, common_1.Body)(new common_1.ValidationPipe())),
     __metadata("design:type", Function),
-    __metadata("design:paramtypes", [dto_update_1.dtoForUpdate, Number]),
+    __metadata("design:paramtypes", [Number, dto_update_1.dtoForUpdate]),
     __metadata("design:returntype", Promise)
-], UsersController.prototype, "patchPersonalAccount", null);
-exports.UsersController = UsersController = __decorate([
+], UsersController.prototype, "patchPersonalInfo", null);
+UsersController = __decorate([
     (0, common_1.Controller)('users'),
     __metadata("design:paramtypes", [users_service_1.UsersService])
 ], UsersController);
+exports.UsersController = UsersController;
 //# sourceMappingURL=users.controller.js.map

@@ -1,21 +1,35 @@
-import { MiddlewareConsumer, Module, NestModule } from '@nestjs/common';
+import { Module } from '@nestjs/common';
 import { SequelizeModule } from '@nestjs/sequelize';
-import { User } from './model/model.user';
-import { RefreshToken } from './model/model.token';
-import { AuthModule } from './module/auth/auth/auth.module';
+import { User } from './model/users/users.model';
+import { RefreshToken } from './model/users/token.model';
+import { AuthModule } from './module/auth/auth.module';
 import { PassportModule } from '@nestjs/passport';
-import { JwtStrategy } from './strategy/strategy.jwt';
-import { JwtAccessAuthGuard } from './guard/guard.jwt';
-import { MiddlewareAuthJwt } from './middleware/middleware.auth';
+import { JwtStrategy } from './common/strategy/strategy.jwt';
+import { JwtAccessAuthGuard } from './common/guard/guard.jwt';
 import { JwtModule } from '@nestjs/jwt';
 import { UsersModule } from './module/users/users.module';
 import { ConfigModule } from '@nestjs/config';
 import { MailerModule } from '@nestjs-modules/mailer';
 import { EmailModule } from './module/email/email.module';
 import { TokenModule } from './module/token/token.module';
-import { PasswordRecoveryModule } from './module/auth/password_recovery/precovery.module';
+import { PasswordRecoveryModule } from './module/password_recovery/pas_recovery.module';
 import { RedisModule } from '@nestjs-modules/ioredis';
-import { TwoFAModule } from './module/auth/tf_auth/2fa.module';
+import { ProjectModule } from './module/project/project.module';
+import { orderProject } from './model/users/project.model';
+import { ImageModule } from './module/image/image.module';
+import { Images } from './model/users/image.model';
+import { ServeStaticModule } from '@nestjs/serve-static';
+import { join } from 'path';
+import { WorkInfoExecutor } from './model/executor/work_Info/work_info.model';
+import { ProjectExecutor } from './model/executor/work_Info/projects.model';
+import { ProfilesExecutor } from './model/executor/profiles.model';
+import { ProfileModule } from './module/executor/profile/profile.module';
+import { WorkInfoModule } from './module/executor/work-info/work-info.module';
+import { CommonModule } from './common/common.module';
+import { CustomerPost } from './model/customer/post.model';
+import { PostModule } from './module/customer/post/post.module';
+import { FeedBack } from './model/users/feedback.model';
+import { FeedbackModule } from './module/feedback/feedback.module';
 
 @Module({
   providers: [JwtStrategy, JwtAccessAuthGuard],
@@ -24,9 +38,15 @@ import { TwoFAModule } from './module/auth/tf_auth/2fa.module';
     AuthModule,
     PassportModule,
     JwtModule,
+    ServeStaticModule.forRoot({
+      rootPath: join(__dirname, '..', 'public'),
+      serveRoot: '/avatar',
+    }),
     RedisModule.forRoot({
-      type: 'single',
-      url: 'redis://127.0.0.1:6379',
+      config: {
+        host: '127.0.0.1',
+        port: 6379,
+      },
     }),
     ConfigModule.forRoot({ isGlobal: true, envFilePath: '.env' }),
     MailerModule.forRoot({
@@ -47,17 +67,30 @@ import { TwoFAModule } from './module/auth/tf_auth/2fa.module';
       username: process.env.POSTGRES_USERNAME,
       password: process.env.POSTGRES_PASSWORD,
       database: process.env.POSTGRES_DB,
-      models: [User, RefreshToken],
+      models: [
+        User,
+        ProjectExecutor,
+        WorkInfoExecutor,
+        RefreshToken,
+        ProjectExecutor,
+        orderProject,
+        Images,
+        ProfilesExecutor,
+        CustomerPost,
+        FeedBack,
+      ],
       autoLoadModels: true,
     }),
     EmailModule,
     TokenModule,
     PasswordRecoveryModule,
     RedisModule,
+    ProjectModule,
+    ImageModule,
+    ProfileModule,
+    WorkInfoModule,
+    PostModule,
+    FeedbackModule,
   ],
 })
-export class appModule implements NestModule {
-  configure(consumer: MiddlewareConsumer) {
-    consumer.apply(MiddlewareAuthJwt).forRoutes('/auth/login');
-  }
-}
+export class appModule {}

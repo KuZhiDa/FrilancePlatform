@@ -5,4 +5,7 @@ export declare class EmailController {
     getIsActivate(token: string): Promise<{
         message: string;
     }>;
+    PostRetryMessage(id_user: number): Promise<void | {
+        message: string;
+    }>;
 }

@@ -9,28 +9,38 @@ Object.defineProperty(exports, "__esModule", { value: true });
 exports.appModule = void 0;
 const common_1 = require("@nestjs/common");
 const sequelize_1 = require("@nestjs/sequelize");
-const model_user_1 = require("./model/model.user");
-const model_token_1 = require("./model/model.token");
-const auth_module_1 = require("./module/auth/auth/auth.module");
+const users_model_1 = require("./model/users/users.model");
+const token_model_1 = require("./model/users/token.model");
+const auth_module_1 = require("./module/auth/auth.module");
 const passport_1 = require("@nestjs/passport");
-const strategy_jwt_1 = require("./strategy/strategy.jwt");
-const guard_jwt_1 = require("./guard/guard.jwt");
-const middleware_auth_1 = require("./middleware/middleware.auth");
+const strategy_jwt_1 = require("./common/strategy/strategy.jwt");
+const guard_jwt_1 = require("./common/guard/guard.jwt");
 const jwt_1 = require("@nestjs/jwt");
 const users_module_1 = require("./module/users/users.module");
 const config_1 = require("@nestjs/config");
 const mailer_1 = require("@nestjs-modules/mailer");
 const email_module_1 = require("./module/email/email.module");
 const token_module_1 = require("./module/token/token.module");
-const precovery_module_1 = require("./module/auth/password_recovery/precovery.module");
+const pas_recovery_module_1 = require("./module/password_recovery/pas_recovery.module");
 const ioredis_1 = require("@nestjs-modules/ioredis");
+const project_module_1 = require("./module/project/project.module");
+const project_model_1 = require("./model/users/project.model");
+const image_module_1 = require("./module/image/image.module");
+const image_model_1 = require("./model/users/image.model");
+const serve_static_1 = require("@nestjs/serve-static");
+const path_1 = require("path");
+const work_info_model_1 = require("./model/executor/work_Info/work_info.model");
+const projects_model_1 = require("./model/executor/work_Info/projects.model");
+const profiles_model_1 = require("./model/executor/profiles.model");
+const profile_module_1 = require("./module/executor/profile/profile.module");
+const work_info_module_1 = require("./module/executor/work-info/work-info.module");
+const post_model_1 = require("./model/customer/post.model");
+const post_module_1 = require("./module/customer/post/post.module");
+const feedback_model_1 = require("./model/users/feedback.model");
+const feedback_module_1 = require("./module/feedback/feedback.module");
 let appModule = class appModule {
-    configure(consumer) {
-        consumer.apply(middleware_auth_1.MiddlewareAuthJwt).forRoutes('/auth/login');
-    }
 };
-exports.appModule = appModule;
-exports.appModule = appModule = __decorate([
+appModule = __decorate([
     (0, common_1.Module)({
         providers: [strategy_jwt_1.JwtStrategy, guard_jwt_1.JwtAccessAuthGuard],
         imports: [
@@ -38,9 +48,15 @@ exports.appModule = appModule = __decorate([
             auth_module_1.AuthModule,
             passport_1.PassportModule,
             jwt_1.JwtModule,
+            serve_static_1.ServeStaticModule.forRoot({
+                rootPath: (0, path_1.join)(__dirname, '..', 'public'),
+                serveRoot: '/avatar',
+            }),
             ioredis_1.RedisModule.forRoot({
-                type: 'single',
-                url: 'redis://127.0.0.1:6379',
+                config: {
+                    host: '127.0.0.1',
+                    port: 6379,
+                },
             }),
             config_1.ConfigModule.forRoot({ isGlobal: true, envFilePath: '.env' }),
             mailer_1.MailerModule.forRoot({
@@ -61,14 +77,32 @@ exports.appModule = appModule = __decorate([
                 username: process.env.POSTGRES_USERNAME,
                 password: process.env.POSTGRES_PASSWORD,
                 database: process.env.POSTGRES_DB,
-                models: [model_user_1.User, model_token_1.RefreshToken],
+                models: [
+                    users_model_1.User,
+                    projects_model_1.ProjectExecutor,
+                    work_info_model_1.WorkInfoExecutor,
+                    token_model_1.RefreshToken,
+                    projects_model_1.ProjectExecutor,
+                    project_model_1.orderProject,
+                    image_model_1.Images,
+                    profiles_model_1.ProfilesExecutor,
+                    post_model_1.CustomerPost,
+                    feedback_model_1.FeedBack,
+                ],
                 autoLoadModels: true,
             }),
             email_module_1.EmailModule,
             token_module_1.TokenModule,
-            precovery_module_1.PasswordRecoveryModule,
+            pas_recovery_module_1.PasswordRecoveryModule,
             ioredis_1.RedisModule,
+            project_module_1.ProjectModule,
+            image_module_1.ImageModule,
+            profile_module_1.ProfileModule,
+            work_info_module_1.WorkInfoModule,
+            post_module_1.PostModule,
+            feedback_module_1.FeedbackModule,
         ],
     })
 ], appModule);
+exports.appModule = appModule;
 //# sourceMappingURL=app.module.js.map

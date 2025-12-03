@@ -20,20 +20,22 @@ let TokenController = class TokenController {
     constructor(tokenService) {
         this.tokenService = tokenService;
     }
-    async postRefresh(req) {
-        this.tokenService.refreshUpdate(req.cookies.token);
+    async postRefresh(req, res) {
+        const result = await this.tokenService.refreshUpdate(req.cookies.token, res);
+        return result;
     }
 };
-exports.TokenController = TokenController;
 __decorate([
     (0, common_1.Patch)(),
     __param(0, (0, common_1.Req)()),
+    __param(1, (0, common_1.Res)({ passthrough: true })),
     __metadata("design:type", Function),
-    __metadata("design:paramtypes", [Object]),
+    __metadata("design:paramtypes", [Object, Object]),
     __metadata("design:returntype", Promise)
 ], TokenController.prototype, "postRefresh", null);
-exports.TokenController = TokenController = __decorate([
+TokenController = __decorate([
     (0, common_1.Controller)('token'),
     __metadata("design:paramtypes", [token_service_1.TokenService])
 ], TokenController);
+exports.TokenController = TokenController;
 //# sourceMappingURL=token.controller.js.map
