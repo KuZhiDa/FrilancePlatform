@@ -1,4 +1,4 @@
-export interface DtoCards {
+export declare class DtoCards {
     id?: number;
     skillName: string;
     experience: number;

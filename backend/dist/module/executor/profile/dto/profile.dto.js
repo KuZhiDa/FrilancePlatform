@@ -43,6 +43,9 @@ __decorate([
 __decorate([
     (0, class_validator_1.IsOptional)(),
     (0, class_validator_1.Length)(0, 250, { message: 'Максимальная длинна поля 250 символов' }),
+    (0, class_validator_1.Matches)(/^[А-Яа-я0-9.,! ]+$/, {
+        message: 'Допустимы только русские буквы, а также набор из символов (.,!).',
+    }),
     __metadata("design:type", String)
 ], DtoProfile.prototype, "infoAboutYourself", void 0);
 exports.DtoProfile = DtoProfile;

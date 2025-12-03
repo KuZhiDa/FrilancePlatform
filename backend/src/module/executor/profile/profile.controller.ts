@@ -11,10 +11,6 @@ import {
 } from '@nestjs/common';
 import { ProfileService } from './profile.service';
 import { DtoProfile } from './dto/profile.dto';
-import { Role } from 'src/common/decorators/decorator.role';
-import { Roles } from 'src/common/constant/roles';
-import { RolesGuard } from 'src/common/guard/guard.roles';
-import { JwtAccessAuthGuard } from 'src/common/guard/guard.jwt';
 
 @Controller('profile')
 export class ProfileController {
@@ -37,6 +33,6 @@ export class ProfileController {
 
   @Delete('clear-info/:id')
   async deleteProfile(@Param('id') id_user: number) {
-    return this.profileService.deleteInfo(id_user);
+    return await this.profileService.deleteInfo(id_user);
   }
 }

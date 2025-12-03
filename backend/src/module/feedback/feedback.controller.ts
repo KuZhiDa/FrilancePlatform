@@ -28,6 +28,6 @@ export class FeedbackController {
 
   @Delete('reject')
   async rejectFeedback(@Query('feedbackId') feedbackId: number) {
-    await this.feedbackService.rejectFeedback(feedbackId);
+    await await this.feedbackService.rejectFeedback(feedbackId);
   }
 }

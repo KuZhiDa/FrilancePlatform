@@ -31,7 +31,7 @@ let ProfileController = class ProfileController {
         return await this.profileService.updateInfo(id_user, body);
     }
     async deleteProfile(id_user) {
-        return this.profileService.deleteInfo(id_user);
+        return await this.profileService.deleteInfo(id_user);
     }
 };
 __decorate([

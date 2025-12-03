@@ -1,7 +1,7 @@
 import { Body, Controller, Delete, Get, Param, Post } from '@nestjs/common';
 import { WorkInfoService } from './work-info.service';
-import type { DtoCards } from './dto/cards.dto';
-import type { ProjectDto } from './dto/project.dto';
+import { DtoCards } from './dto/cards.dto';
+import { ProjectDto } from './dto/project.dto';
 
 @Controller('work-info')
 export class WorkInfoController {

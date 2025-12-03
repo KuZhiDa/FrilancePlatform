@@ -33,7 +33,7 @@ let FeedbackController = class FeedbackController {
         return await this.feedbackService.acceptFeedback(feedbackId, dto);
     }
     async rejectFeedback(feedbackId) {
-        await this.feedbackService.rejectFeedback(feedbackId);
+        await await this.feedbackService.rejectFeedback(feedbackId);
     }
 };
 __decorate([

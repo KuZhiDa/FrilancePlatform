@@ -1,15 +1,24 @@
-import { IsNotEmpty, IsNumber, IsString, Length } from 'class-validator';
+import {
+  IsNotEmpty,
+  IsNumber,
+  IsString,
+  Length,
+  Matches,
+} from 'class-validator';
 
 export class PostCreateDto {
-  @IsNotEmpty()
-  @IsString()
+  @IsNotEmpty({ message: 'Поле projectName не должно быть пустым.' })
+  @Length(1, 30, {
+    message: 'Поле projectName должно содержать от 1 до 30 символов.',
+  })
   projectName: string;
 
-  @IsNotEmpty()
-  @IsString()
+  @IsNotEmpty({ message: 'Поле description не должно быть пустым.' })
+  @Length(1, 255, {
+    message: 'Поле description должно содержать от 1 до 255 символов.',
+  })
   description: string;
 
-  @IsNotEmpty()
-  @IsNumber()
+  @IsNotEmpty({ message: 'Поле price не должно быть пустым.' })
   price: number;
 }

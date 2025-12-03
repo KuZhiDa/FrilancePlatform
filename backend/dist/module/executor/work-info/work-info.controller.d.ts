@@ -1,6 +1,6 @@
 import { WorkInfoService } from './work-info.service';
-import type { DtoCards } from './dto/cards.dto';
-import type { ProjectDto } from './dto/project.dto';
+import { DtoCards } from './dto/cards.dto';
+import { ProjectDto } from './dto/project.dto';
 export declare class WorkInfoController {
     private readonly workInfoService;
     constructor(workInfoService: WorkInfoService);

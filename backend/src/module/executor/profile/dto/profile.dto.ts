@@ -27,5 +27,8 @@ export class DtoProfile {
 
   @IsOptional()
   @Length(0, 250, { message: 'Максимальная длинна поля 250 символов' })
+  @Matches(/^[А-Яа-я0-9.,! ]+$/, {
+    message: 'Допустимы только русские буквы, а также набор из символов (.,!).',
+  })
   infoAboutYourself?: string;
 }

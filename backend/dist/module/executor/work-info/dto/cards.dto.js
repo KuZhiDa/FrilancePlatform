@@ -1,3 +1,33 @@
 "use strict";
+var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
+    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
+    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
+    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
+    return c > 3 && r && Object.defineProperty(target, key, r), r;
+};
+var __metadata = (this && this.__metadata) || function (k, v) {
+    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
+};
 Object.defineProperty(exports, "__esModule", { value: true });
+exports.DtoCards = void 0;
+const class_validator_1 = require("class-validator");
+class DtoCards {
+    id;
+    skillName;
+    experience;
+    infoAboutSkillOrExperience;
+    project;
+}
+__decorate([
+    (0, class_validator_1.IsNotEmpty)({ message: 'Поле skillName не должно быть пустым.' }),
+    (0, class_validator_1.Length)(1, 30, {
+        message: 'Поле skillName должно содержать от 1 до 30 символов.',
+    }),
+    __metadata("design:type", String)
+], DtoCards.prototype, "skillName", void 0);
+__decorate([
+    (0, class_validator_1.IsNotEmpty)({ message: 'Поле experience не должно быть пустым.' }),
+    __metadata("design:type", Number)
+], DtoCards.prototype, "experience", void 0);
+exports.DtoCards = DtoCards;
 //# sourceMappingURL=cards.dto.js.map

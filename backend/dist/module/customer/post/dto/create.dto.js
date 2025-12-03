@@ -17,18 +17,21 @@ class PostCreateDto {
     price;
 }
 __decorate([
-    (0, class_validator_1.IsNotEmpty)(),
-    (0, class_validator_1.IsString)(),
+    (0, class_validator_1.IsNotEmpty)({ message: 'Поле projectName не должно быть пустым.' }),
+    (0, class_validator_1.Length)(1, 30, {
+        message: 'Поле projectName должно содержать от 1 до 30 символов.',
+    }),
     __metadata("design:type", String)
 ], PostCreateDto.prototype, "projectName", void 0);
 __decorate([
-    (0, class_validator_1.IsNotEmpty)(),
-    (0, class_validator_1.IsString)(),
+    (0, class_validator_1.IsNotEmpty)({ message: 'Поле description не должно быть пустым.' }),
+    (0, class_validator_1.Length)(1, 255, {
+        message: 'Поле description должно содержать от 1 до 255 символов.',
+    }),
     __metadata("design:type", String)
 ], PostCreateDto.prototype, "description", void 0);
 __decorate([
-    (0, class_validator_1.IsNotEmpty)(),
-    (0, class_validator_1.IsNumber)(),
+    (0, class_validator_1.IsNotEmpty)({ message: 'Поле price не должно быть пустым.' }),
     __metadata("design:type", Number)
 ], PostCreateDto.prototype, "price", void 0);
 exports.PostCreateDto = PostCreateDto;

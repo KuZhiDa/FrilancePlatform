@@ -15,6 +15,8 @@ Object.defineProperty(exports, "__esModule", { value: true });
 exports.WorkInfoController = void 0;
 const common_1 = require("@nestjs/common");
 const work_info_service_1 = require("./work-info.service");
+const cards_dto_1 = require("./dto/cards.dto");
+const project_dto_1 = require("./dto/project.dto");
 let WorkInfoController = class WorkInfoController {
     workInfoService;
     constructor(workInfoService) {
@@ -60,7 +62,7 @@ __decorate([
     __param(0, (0, common_1.Param)('id')),
     __param(1, (0, common_1.Body)()),
     __metadata("design:type", Function),
-    __metadata("design:paramtypes", [Number, Object]),
+    __metadata("design:paramtypes", [Number, cards_dto_1.DtoCards]),
     __metadata("design:returntype", Promise)
 ], WorkInfoController.prototype, "postCard", null);
 __decorate([
@@ -68,7 +70,7 @@ __decorate([
     __param(0, (0, common_1.Param)('id')),
     __param(1, (0, common_1.Body)()),
     __metadata("design:type", Function),
-    __metadata("design:paramtypes", [Number, Function]),
+    __metadata("design:paramtypes", [Number, project_dto_1.ProjectDto]),
     __metadata("design:returntype", Promise)
 ], WorkInfoController.prototype, "postProject", null);
 __decorate([
