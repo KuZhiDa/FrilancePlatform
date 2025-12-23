@@ -17,6 +17,7 @@ const image_model_1 = require("./image.model");
 const profiles_model_1 = require("../executor/profiles.model");
 const work_info_model_1 = require("../executor/work_Info/work_info.model");
 const feedback_model_1 = require("../users/feedback.model");
+const post_model_1 = require("../customer/post.model");
 let User = class User extends sequelize_typescript_1.Model {
     refreshToken;
     projectAsExecutor;
@@ -25,7 +26,9 @@ let User = class User extends sequelize_typescript_1.Model {
     profileExecutor;
     workInfoExecutor;
     feedBack;
+    customerPost;
 };
+exports.User = User;
 __decorate([
     (0, sequelize_typescript_1.Column)({ type: sequelize_typescript_1.DataType.STRING, unique: true, allowNull: false }),
     __metadata("design:type", String)
@@ -64,31 +67,42 @@ __decorate([
     __metadata("design:type", Number)
 ], User.prototype, "rating_sum", void 0);
 __decorate([
-    (0, sequelize_typescript_1.HasMany)(() => token_model_1.RefreshToken, { foreignKey: 'id_user', onDelete: 'CASCADE' }),
+    (0, sequelize_typescript_1.HasMany)(() => token_model_1.RefreshToken, {
+        foreignKey: 'id_user',
+        onDelete: 'CASCADE',
+        hooks: true,
+    }),
     __metadata("design:type", Array)
 ], User.prototype, "refreshToken", void 0);
 __decorate([
     (0, sequelize_typescript_1.HasMany)(() => project_model_1.orderProject, {
-        foreignKey: 'executorId',
+        foreignKey: 'id_executor',
         onDelete: 'CASCADE',
+        hooks: true,
     }),
     __metadata("design:type", Array)
 ], User.prototype, "projectAsExecutor", void 0);
 __decorate([
     (0, sequelize_typescript_1.HasMany)(() => project_model_1.orderProject, {
-        foreignKey: 'customerId',
+        foreignKey: 'id_customer',
         onDelete: 'CASCADE',
+        hooks: true,
     }),
     __metadata("design:type", Array)
 ], User.prototype, "projectAsCustomer", void 0);
 __decorate([
-    (0, sequelize_typescript_1.HasOne)(() => image_model_1.Images, { foreignKey: 'id_user', onDelete: 'CASCADE' }),
+    (0, sequelize_typescript_1.HasOne)(() => image_model_1.Images, {
+        foreignKey: 'id_user',
+        onDelete: 'CASCADE',
+        hooks: true,
+    }),
     __metadata("design:type", image_model_1.Images)
 ], User.prototype, "image", void 0);
 __decorate([
     (0, sequelize_typescript_1.HasOne)(() => profiles_model_1.ProfilesExecutor, {
         foreignKey: 'id_user',
         onDelete: 'CASCADE',
+        hooks: true,
     }),
     __metadata("design:type", profiles_model_1.ProfilesExecutor)
 ], User.prototype, "profileExecutor", void 0);
@@ -96,15 +110,27 @@ __decorate([
     (0, sequelize_typescript_1.HasMany)(() => work_info_model_1.WorkInfoExecutor, {
         foreignKey: 'id_user',
         onDelete: 'CASCADE',
+        hooks: true,
     }),
     __metadata("design:type", Array)
 ], User.prototype, "workInfoExecutor", void 0);
 __decorate([
-    (0, sequelize_typescript_1.HasMany)(() => feedback_model_1.FeedBack, { foreignKey: 'userId', onDelete: 'CASCADE' }),
+    (0, sequelize_typescript_1.HasMany)(() => feedback_model_1.FeedBack, {
+        foreignKey: 'user_id',
+        onDelete: 'CASCADE',
+        hooks: true,
+    }),
     __metadata("design:type", Array)
 ], User.prototype, "feedBack", void 0);
-User = __decorate([
+__decorate([
+    (0, sequelize_typescript_1.HasMany)(() => post_model_1.CustomerPost, {
+        foreignKey: 'id_user',
+        onDelete: 'CASCADE',
+        hooks: true,
+    }),
+    __metadata("design:type", Array)
+], User.prototype, "customerPost", void 0);
+exports.User = User = __decorate([
     (0, sequelize_typescript_1.Table)({ tableName: 'users' })
 ], User);
-exports.User = User;
 //# sourceMappingURL=users.model.js.map

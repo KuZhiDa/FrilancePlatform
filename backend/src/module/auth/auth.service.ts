@@ -13,7 +13,6 @@ import { EmailService } from '../email/email.service';
 import { dtoForProof } from 'src/common/dto/dto.proof';
 import { TwoFAService } from 'src/module/two_factor_auth/two_factor.service';
 import { DtoFor2FaReturn } from './dto/dto.two_factor_return';
-import { messageEmailProof } from 'src/common/constant/messageEmailProof';
 
 @Injectable()
 export class AuthService {

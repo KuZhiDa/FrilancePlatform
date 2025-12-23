@@ -12,6 +12,7 @@ import { Images } from './image.model';
 import { ProfilesExecutor } from '../executor/profiles.model';
 import { WorkInfoExecutor } from '../executor/work_Info/work_info.model';
 import { FeedBack } from '../users/feedback.model';
+import { CustomerPost } from '../customer/post.model';
 
 interface userInterface {
   username: string;
@@ -52,36 +53,59 @@ export class User extends Model<User, userInterface> {
   @Column({ type: DataType.INTEGER, defaultValue: 0 })
   declare rating_sum: number;
 
-  @HasMany(() => RefreshToken, { foreignKey: 'id_user', onDelete: 'CASCADE' })
+  @HasMany(() => RefreshToken, {
+    foreignKey: 'id_user',
+    onDelete: 'CASCADE',
+    hooks: true,
+  })
   refreshToken: RefreshToken[];
 
   @HasMany(() => orderProject, {
-    foreignKey: 'executorId',
+    foreignKey: 'id_executor',
     onDelete: 'CASCADE',
+    hooks: true,
   })
   projectAsExecutor: orderProject[];
 
   @HasMany(() => orderProject, {
-    foreignKey: 'customerId',
+    foreignKey: 'id_customer',
     onDelete: 'CASCADE',
+    hooks: true,
   })
   projectAsCustomer: orderProject[];
 
-  @HasOne(() => Images, { foreignKey: 'id_user', onDelete: 'CASCADE' })
+  @HasOne(() => Images, {
+    foreignKey: 'id_user',
+    onDelete: 'CASCADE',
+    hooks: true,
+  })
   image: Images;
 
   @HasOne(() => ProfilesExecutor, {
     foreignKey: 'id_user',
     onDelete: 'CASCADE',
+    hooks: true,
   })
   profileExecutor: ProfilesExecutor;
 
   @HasMany(() => WorkInfoExecutor, {
     foreignKey: 'id_user',
     onDelete: 'CASCADE',
+    hooks: true,
   })
   workInfoExecutor: WorkInfoExecutor[];
 
-  @HasMany(() => FeedBack, { foreignKey: 'userId', onDelete: 'CASCADE' })
+  @HasMany(() => FeedBack, {
+    foreignKey: 'user_id',
+    onDelete: 'CASCADE',
+    hooks: true,
+  })
   feedBack: FeedBack[];
+
+  @HasMany(() => CustomerPost, {
+    foreignKey: 'id_user',
+    onDelete: 'CASCADE',
+    hooks: true,
+  })
+  customerPost: CustomerPost[];
 }

@@ -1,4 +1,5 @@
 import { Model } from 'sequelize-typescript';
+import { User } from '../users/users.model';
 import type { Male } from '../../common/constant/male.type';
 import type { Education } from 'src/common/constant/education.type';
 interface dataPortfolio {
@@ -18,5 +19,6 @@ export declare class ProfilesExecutor extends Model<ProfilesExecutor, dataPortfo
     countryFrom: string;
     cityFrom: string;
     infoAboutYourself: string;
+    userProfile: User;
 }
 export {};

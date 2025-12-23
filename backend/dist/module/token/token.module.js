@@ -15,7 +15,8 @@ const sequelize_1 = require("@nestjs/sequelize");
 const token_model_1 = require("../../model/users/token.model");
 let TokenModule = class TokenModule {
 };
-TokenModule = __decorate([
+exports.TokenModule = TokenModule;
+exports.TokenModule = TokenModule = __decorate([
     (0, common_1.Module)({
         controllers: [token_controller_1.TokenController],
         providers: [token_service_1.TokenService],
@@ -23,5 +24,4 @@ TokenModule = __decorate([
         exports: [token_service_1.TokenService],
     })
 ], TokenModule);
-exports.TokenModule = TokenModule;
 //# sourceMappingURL=token.module.js.map

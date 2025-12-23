@@ -19,7 +19,8 @@ const project_module_1 = require("../project/project.module");
 const post_module_1 = require("../customer/post/post.module");
 let FeedbackModule = class FeedbackModule {
 };
-FeedbackModule = __decorate([
+exports.FeedbackModule = FeedbackModule;
+exports.FeedbackModule = FeedbackModule = __decorate([
     (0, common_1.Module)({
         controllers: [feedback_controller_1.FeedbackController],
         providers: [feedback_service_1.FeedbackService],
@@ -31,5 +32,4 @@ FeedbackModule = __decorate([
         ],
     })
 ], FeedbackModule);
-exports.FeedbackModule = FeedbackModule;
 //# sourceMappingURL=feedback.module.js.map

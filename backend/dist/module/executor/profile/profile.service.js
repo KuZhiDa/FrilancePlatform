@@ -88,11 +88,11 @@ let ProfileService = class ProfileService {
         return { message: 'Данные удалены.' };
     }
 };
-ProfileService = __decorate([
+exports.ProfileService = ProfileService;
+exports.ProfileService = ProfileService = __decorate([
     (0, common_1.Injectable)(),
     __param(0, (0, sequelize_1.InjectModel)(users_model_1.User)),
     __param(1, (0, sequelize_1.InjectModel)(profiles_model_1.ProfilesExecutor)),
     __metadata("design:paramtypes", [Object, Object])
 ], ProfileService);
-exports.ProfileService = ProfileService;
 //# sourceMappingURL=profile.service.js.map

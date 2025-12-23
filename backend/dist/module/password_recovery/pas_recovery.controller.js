@@ -28,6 +28,7 @@ let PasswordRecoveryController = class PasswordRecoveryController {
         return this.passwordRecoveryService.updatePassword(body);
     }
 };
+exports.PasswordRecoveryController = PasswordRecoveryController;
 __decorate([
     (0, common_1.Post)('sand'),
     __param(0, (0, common_1.Body)('login')),
@@ -42,9 +43,8 @@ __decorate([
     __metadata("design:paramtypes", [update_password_dto_1.dtoForUpdatePassword]),
     __metadata("design:returntype", Promise)
 ], PasswordRecoveryController.prototype, "postProofUpdate", null);
-PasswordRecoveryController = __decorate([
+exports.PasswordRecoveryController = PasswordRecoveryController = __decorate([
     (0, common_1.Controller)('reset-password'),
     __metadata("design:paramtypes", [pass_recovery_service_1.PasswordRecoveryService])
 ], PasswordRecoveryController);
-exports.PasswordRecoveryController = PasswordRecoveryController;
 //# sourceMappingURL=pas_recovery.controller.js.map

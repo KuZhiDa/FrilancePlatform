@@ -42,6 +42,7 @@ let PostController = class PostController {
         return await this.postService.deletePost(id);
     }
 };
+exports.PostController = PostController;
 __decorate([
     (0, common_1.UseGuards)(guard_jwt_1.JwtAccessAuthGuard),
     (0, common_1.Get)('global'),
@@ -81,9 +82,8 @@ __decorate([
     __metadata("design:paramtypes", [Number]),
     __metadata("design:returntype", Promise)
 ], PostController.prototype, "deletePost", null);
-PostController = __decorate([
+exports.PostController = PostController = __decorate([
     (0, common_1.Controller)('post'),
     __metadata("design:paramtypes", [post_service_1.PostService])
 ], PostController);
-exports.PostController = PostController;
 //# sourceMappingURL=post.controller.js.map

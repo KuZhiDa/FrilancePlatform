@@ -43,6 +43,7 @@ let WorkInfoController = class WorkInfoController {
         return await this.workInfoService.clearProjectInfo(id_card);
     }
 };
+exports.WorkInfoController = WorkInfoController;
 __decorate([
     (0, common_1.Get)(':id'),
     __param(0, (0, common_1.Param)('id')),
@@ -80,9 +81,8 @@ __decorate([
     __metadata("design:paramtypes", [Number]),
     __metadata("design:returntype", Promise)
 ], WorkInfoController.prototype, "deleteProject", null);
-WorkInfoController = __decorate([
+exports.WorkInfoController = WorkInfoController = __decorate([
     (0, common_1.Controller)('work-info'),
     __metadata("design:paramtypes", [work_info_service_1.WorkInfoService])
 ], WorkInfoController);
-exports.WorkInfoController = WorkInfoController;
 //# sourceMappingURL=work-info.controller.js.map

@@ -58,9 +58,9 @@ export class orderProject extends Model<orderProject, InterfaceProject> {
   })
   declare price: number;
 
-  @BelongsTo(() => User, 'executorId')
+  @BelongsTo(() => User, { foreignKey: 'id_executor' })
   executor: User;
 
-  @BelongsTo(() => User, 'customerId')
+  @BelongsTo(() => User, { foreignKey: 'id_customer' })
   customer: User;
 }

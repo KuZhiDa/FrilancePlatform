@@ -1,4 +1,3 @@
-/// <reference types="cookie-parser" />
 import { TokenService } from './token.service';
 import type { Request, Response } from 'express';
 export declare class TokenController {

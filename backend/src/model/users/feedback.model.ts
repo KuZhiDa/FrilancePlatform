@@ -17,11 +17,19 @@ export interface FeedBackInterface {
 @Table({ tableName: 'feedback' })
 export class FeedBack extends Model<FeedBack, FeedBackInterface> {
   @ForeignKey(() => CustomerPost)
-  @Column({ field: 'post_id', type: DataType.INTEGER, allowNull: false })
+  @Column({
+    field: 'post_id',
+    type: DataType.INTEGER,
+    allowNull: false,
+  })
   declare postId: number;
 
   @ForeignKey(() => User)
-  @Column({ field: 'user_id', type: DataType.INTEGER, allowNull: false })
+  @Column({
+    field: 'user_id',
+    type: DataType.INTEGER,
+    allowNull: false,
+  })
   declare userId: number;
 
   @Column({
@@ -31,9 +39,11 @@ export class FeedBack extends Model<FeedBack, FeedBackInterface> {
   })
   declare suggestedPrice: number;
 
-  @BelongsTo(() => User, 'userId')
+  @BelongsTo(() => User, { foreignKey: 'user_id' })
   executor: User;
 
-  @BelongsTo(() => CustomerPost, 'postId')
+  @BelongsTo(() => CustomerPost, {
+    foreignKey: 'post_id',
+  })
   post: CustomerPost;
 }

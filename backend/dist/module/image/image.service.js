@@ -74,11 +74,11 @@ let ImageService = class ImageService {
         return { message: 'Аватарка успешно добавлена' };
     }
 };
-ImageService = __decorate([
+exports.ImageService = ImageService;
+exports.ImageService = ImageService = __decorate([
     (0, common_1.Injectable)(),
     __param(0, (0, sequelize_1.InjectModel)(image_model_1.Images)),
     __param(1, (0, sequelize_1.InjectModel)(users_model_1.User)),
     __metadata("design:paramtypes", [Object, Object])
 ], ImageService);
-exports.ImageService = ImageService;
 //# sourceMappingURL=image.service.js.map

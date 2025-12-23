@@ -15,14 +15,16 @@ const users_model_1 = require("../users/users.model");
 const feedback_model_1 = require("../users/feedback.model");
 let CustomerPost = class CustomerPost extends sequelize_typescript_1.Model {
     feedBack;
+    user;
 };
+exports.CustomerPost = CustomerPost;
 __decorate([
     (0, sequelize_typescript_1.Column)({ type: sequelize_typescript_1.DataType.INTEGER, primaryKey: true, autoIncrement: true }),
     __metadata("design:type", Number)
 ], CustomerPost.prototype, "id", void 0);
 __decorate([
-    (0, sequelize_typescript_1.Column)({ type: sequelize_typescript_1.DataType.INTEGER, allowNull: false }),
     (0, sequelize_typescript_1.ForeignKey)(() => users_model_1.User),
+    (0, sequelize_typescript_1.Column)({ type: sequelize_typescript_1.DataType.INTEGER, allowNull: false }),
     __metadata("design:type", Number)
 ], CustomerPost.prototype, "id_user", void 0);
 __decorate([
@@ -38,11 +40,18 @@ __decorate([
     __metadata("design:type", Number)
 ], CustomerPost.prototype, "price", void 0);
 __decorate([
-    (0, sequelize_typescript_1.HasMany)(() => feedback_model_1.FeedBack, { foreignKey: 'postId', onDelete: 'CASCADE' }),
+    (0, sequelize_typescript_1.HasMany)(() => feedback_model_1.FeedBack, {
+        foreignKey: 'post_id',
+        onDelete: 'CASCADE',
+        hooks: true,
+    }),
     __metadata("design:type", Array)
 ], CustomerPost.prototype, "feedBack", void 0);
-CustomerPost = __decorate([
+__decorate([
+    (0, sequelize_typescript_1.BelongsTo)(() => users_model_1.User, { foreignKey: 'id_user' }),
+    __metadata("design:type", users_model_1.User)
+], CustomerPost.prototype, "user", void 0);
+exports.CustomerPost = CustomerPost = __decorate([
     (0, sequelize_typescript_1.Table)({ tableName: 'customer_post' })
 ], CustomerPost);
-exports.CustomerPost = CustomerPost;
 //# sourceMappingURL=post.model.js.map

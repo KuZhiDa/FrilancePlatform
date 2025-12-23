@@ -16,6 +16,7 @@ let orderProject = class orderProject extends sequelize_typescript_1.Model {
     executor;
     customer;
 };
+exports.orderProject = orderProject;
 __decorate([
     (0, sequelize_typescript_1.Column)({ field: 'name_project', type: sequelize_typescript_1.DataType.STRING, allowNull: false }),
     __metadata("design:type", String)
@@ -62,15 +63,14 @@ __decorate([
     __metadata("design:type", Number)
 ], orderProject.prototype, "price", void 0);
 __decorate([
-    (0, sequelize_typescript_1.BelongsTo)(() => users_model_1.User, 'executorId'),
+    (0, sequelize_typescript_1.BelongsTo)(() => users_model_1.User, { foreignKey: 'id_executor' }),
     __metadata("design:type", users_model_1.User)
 ], orderProject.prototype, "executor", void 0);
 __decorate([
-    (0, sequelize_typescript_1.BelongsTo)(() => users_model_1.User, 'customerId'),
+    (0, sequelize_typescript_1.BelongsTo)(() => users_model_1.User, { foreignKey: 'id_customer' }),
     __metadata("design:type", users_model_1.User)
 ], orderProject.prototype, "customer", void 0);
-orderProject = __decorate([
+exports.orderProject = orderProject = __decorate([
     (0, sequelize_typescript_1.Table)({ tableName: 'order_project' })
 ], orderProject);
-exports.orderProject = orderProject;
 //# sourceMappingURL=project.model.js.map

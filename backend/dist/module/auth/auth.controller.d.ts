@@ -1,4 +1,3 @@
-/// <reference types="cookie-parser" />
 import { AuthService } from './auth.service';
 import { DtoForReg } from './dto/dto.register';
 import type { Response, Request } from 'express';

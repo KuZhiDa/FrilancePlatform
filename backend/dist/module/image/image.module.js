@@ -17,7 +17,8 @@ const platform_express_1 = require("@nestjs/platform-express");
 const multer_1 = require("multer");
 let ImageModule = class ImageModule {
 };
-ImageModule = __decorate([
+exports.ImageModule = ImageModule;
+exports.ImageModule = ImageModule = __decorate([
     (0, common_1.Module)({
         controllers: [image_controller_1.ImageController],
         providers: [image_service_1.ImageService],
@@ -38,5 +39,4 @@ ImageModule = __decorate([
         exports: [image_service_1.ImageService],
     })
 ], ImageModule);
-exports.ImageModule = ImageModule;
 //# sourceMappingURL=image.module.js.map

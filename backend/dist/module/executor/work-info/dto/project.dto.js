@@ -17,6 +17,7 @@ class ProjectDto {
     projectName;
     description;
 }
+exports.ProjectDto = ProjectDto;
 __decorate([
     (0, class_validator_1.IsNotEmpty)({ message: 'Поле urlGit не должно быть пустым.' }),
     __metadata("design:type", String)
@@ -25,5 +26,4 @@ __decorate([
     (0, class_validator_1.IsNotEmpty)({ message: 'Поле projectName не должно быть пустым.' }),
     __metadata("design:type", String)
 ], ProjectDto.prototype, "projectName", void 0);
-exports.ProjectDto = ProjectDto;
 //# sourceMappingURL=project.dto.js.map

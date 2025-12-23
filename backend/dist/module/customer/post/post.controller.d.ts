@@ -1,4 +1,3 @@
-/// <reference types="cookie-parser" />
 import { PostService } from './post.service';
 import { PostCreateDto } from './dto/create.dto';
 import { PostUpdateDto } from './dto/update.dto';

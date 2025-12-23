@@ -36,6 +36,7 @@ let FeedbackController = class FeedbackController {
         await await this.feedbackService.rejectFeedback(feedbackId);
     }
 };
+exports.FeedbackController = FeedbackController;
 __decorate([
     (0, common_1.Post)(''),
     __param(0, (0, common_1.Body)()),
@@ -65,9 +66,8 @@ __decorate([
     __metadata("design:paramtypes", [Number]),
     __metadata("design:returntype", Promise)
 ], FeedbackController.prototype, "rejectFeedback", null);
-FeedbackController = __decorate([
+exports.FeedbackController = FeedbackController = __decorate([
     (0, common_1.Controller)('feedback'),
     __metadata("design:paramtypes", [feedback_service_1.FeedbackService])
 ], FeedbackController);
-exports.FeedbackController = FeedbackController;
 //# sourceMappingURL=feedback.controller.js.map

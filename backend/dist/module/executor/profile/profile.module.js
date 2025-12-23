@@ -15,12 +15,12 @@ const users_model_1 = require("../../../model/users/users.model");
 const profiles_model_1 = require("../../../model/executor/profiles.model");
 let ProfileModule = class ProfileModule {
 };
-ProfileModule = __decorate([
+exports.ProfileModule = ProfileModule;
+exports.ProfileModule = ProfileModule = __decorate([
     (0, common_1.Module)({
         providers: [profile_service_1.ProfileService],
         controllers: [profile_controller_1.ProfileController],
         imports: [sequelize_1.SequelizeModule.forFeature([users_model_1.User, profiles_model_1.ProfilesExecutor])],
     })
 ], ProfileModule);
-exports.ProfileModule = ProfileModule;
 //# sourceMappingURL=profile.module.js.map

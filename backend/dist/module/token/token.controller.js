@@ -25,6 +25,7 @@ let TokenController = class TokenController {
         return result;
     }
 };
+exports.TokenController = TokenController;
 __decorate([
     (0, common_1.Patch)(),
     __param(0, (0, common_1.Req)()),
@@ -33,9 +34,8 @@ __decorate([
     __metadata("design:paramtypes", [Object, Object]),
     __metadata("design:returntype", Promise)
 ], TokenController.prototype, "postRefresh", null);
-TokenController = __decorate([
+exports.TokenController = TokenController = __decorate([
     (0, common_1.Controller)('token'),
     __metadata("design:paramtypes", [token_service_1.TokenService])
 ], TokenController);
-exports.TokenController = TokenController;
 //# sourceMappingURL=token.controller.js.map

@@ -158,11 +158,11 @@ let EmailService = class EmailService {
         });
     }
 };
-EmailService = __decorate([
+exports.EmailService = EmailService;
+exports.EmailService = EmailService = __decorate([
     (0, common_1.Injectable)(),
     __param(0, (0, sequelize_1.InjectModel)(users_model_1.User)),
     __metadata("design:paramtypes", [Object, token_service_1.TokenService,
         mailer_1.MailerService])
 ], EmailService);
-exports.EmailService = EmailService;
 //# sourceMappingURL=email.service.js.map

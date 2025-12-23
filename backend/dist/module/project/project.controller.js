@@ -37,6 +37,7 @@ let ProjectController = class ProjectController {
         }
     }
 };
+exports.ProjectController = ProjectController;
 __decorate([
     (0, common_1.Get)(''),
     __param(0, (0, common_1.Query)()),
@@ -52,9 +53,8 @@ __decorate([
     __metadata("design:paramtypes", [Number, patch_dto_1.PatchDto]),
     __metadata("design:returntype", Promise)
 ], ProjectController.prototype, "updateProjectOptions", null);
-ProjectController = __decorate([
+exports.ProjectController = ProjectController = __decorate([
     (0, common_1.Controller)('project'),
     __metadata("design:paramtypes", [project_service_1.ProjectService])
 ], ProjectController);
-exports.ProjectController = ProjectController;
 //# sourceMappingURL=project.controller.js.map

@@ -40,7 +40,8 @@ const feedback_model_1 = require("./model/users/feedback.model");
 const feedback_module_1 = require("./module/feedback/feedback.module");
 let appModule = class appModule {
 };
-appModule = __decorate([
+exports.appModule = appModule;
+exports.appModule = appModule = __decorate([
     (0, common_1.Module)({
         providers: [strategy_jwt_1.JwtStrategy, guard_jwt_1.JwtAccessAuthGuard],
         imports: [
@@ -77,18 +78,21 @@ appModule = __decorate([
                 username: process.env.POSTGRES_USERNAME,
                 password: process.env.POSTGRES_PASSWORD,
                 database: process.env.POSTGRES_DB,
+                synchronize: true,
                 models: [
                     users_model_1.User,
                     projects_model_1.ProjectExecutor,
                     work_info_model_1.WorkInfoExecutor,
                     token_model_1.RefreshToken,
-                    projects_model_1.ProjectExecutor,
                     project_model_1.orderProject,
                     image_model_1.Images,
                     profiles_model_1.ProfilesExecutor,
                     post_model_1.CustomerPost,
                     feedback_model_1.FeedBack,
                 ],
+                sync: {
+                    force: true,
+                },
                 autoLoadModels: true,
             }),
             email_module_1.EmailModule,
@@ -104,5 +108,4 @@ appModule = __decorate([
         ],
     })
 ], appModule);
-exports.appModule = appModule;
 //# sourceMappingURL=app.module.js.map

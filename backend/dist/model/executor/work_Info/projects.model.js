@@ -13,9 +13,15 @@ exports.ProjectExecutor = void 0;
 const sequelize_typescript_1 = require("sequelize-typescript");
 const work_info_model_1 = require("./work_info.model");
 let ProjectExecutor = class ProjectExecutor extends sequelize_typescript_1.Model {
+    projectWorkInfo;
 };
+exports.ProjectExecutor = ProjectExecutor;
 __decorate([
-    (0, sequelize_typescript_1.Column)({ field: 'id_work_info', type: sequelize_typescript_1.DataType.INTEGER, allowNull: false }),
+    (0, sequelize_typescript_1.Column)({
+        field: 'id_work_info',
+        type: sequelize_typescript_1.DataType.INTEGER,
+        allowNull: false,
+    }),
     (0, sequelize_typescript_1.ForeignKey)(() => work_info_model_1.WorkInfoExecutor),
     __metadata("design:type", Number)
 ], ProjectExecutor.prototype, "id_WorkInfo", void 0);
@@ -31,8 +37,13 @@ __decorate([
     (0, sequelize_typescript_1.Column)({ type: sequelize_typescript_1.DataType.TEXT, allowNull: true }),
     __metadata("design:type", String)
 ], ProjectExecutor.prototype, "description", void 0);
-ProjectExecutor = __decorate([
+__decorate([
+    (0, sequelize_typescript_1.BelongsTo)(() => work_info_model_1.WorkInfoExecutor, {
+        foreignKey: 'id_work_info',
+    }),
+    __metadata("design:type", work_info_model_1.WorkInfoExecutor)
+], ProjectExecutor.prototype, "projectWorkInfo", void 0);
+exports.ProjectExecutor = ProjectExecutor = __decorate([
     (0, sequelize_typescript_1.Table)({ tableName: 'executor_project' })
 ], ProjectExecutor);
-exports.ProjectExecutor = ProjectExecutor;
 //# sourceMappingURL=projects.model.js.map

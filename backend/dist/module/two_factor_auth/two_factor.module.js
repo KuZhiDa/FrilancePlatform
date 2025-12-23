@@ -15,7 +15,8 @@ const users_model_1 = require("../../model/users/users.model");
 const token_module_1 = require("../token/token.module");
 let TwoFAModule = class TwoFAModule {
 };
-TwoFAModule = __decorate([
+exports.TwoFAModule = TwoFAModule;
+exports.TwoFAModule = TwoFAModule = __decorate([
     (0, common_1.Module)({
         providers: [two_factor_service_1.TwoFAService],
         controllers: [two_factor_controller_1.TwoFaController],
@@ -23,5 +24,4 @@ TwoFAModule = __decorate([
         exports: [two_factor_service_1.TwoFAService],
     })
 ], TwoFAModule);
-exports.TwoFAModule = TwoFAModule;
 //# sourceMappingURL=two_factor.module.js.map

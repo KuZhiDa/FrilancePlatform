@@ -99,10 +99,10 @@ let PostService = class PostService {
         return postData;
     }
 };
-PostService = __decorate([
+exports.PostService = PostService;
+exports.PostService = PostService = __decorate([
     (0, common_1.Injectable)(),
     __param(0, (0, sequelize_1.InjectModel)(post_model_1.CustomerPost)),
     __metadata("design:paramtypes", [Object, check_service_1.CheckService])
 ], PostService);
-exports.PostService = PostService;
 //# sourceMappingURL=post.service.js.map

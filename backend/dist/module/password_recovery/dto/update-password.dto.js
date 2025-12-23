@@ -15,6 +15,7 @@ class dtoForUpdatePassword {
     token;
     password;
 }
+exports.dtoForUpdatePassword = dtoForUpdatePassword;
 __decorate([
     (0, class_validator_1.IsNotEmpty)({ message: 'Нет токена.' }),
     __metadata("design:type", String)
@@ -32,5 +33,4 @@ __decorate([
     }),
     __metadata("design:type", String)
 ], dtoForUpdatePassword.prototype, "password", void 0);
-exports.dtoForUpdatePassword = dtoForUpdatePassword;
 //# sourceMappingURL=update-password.dto.js.map

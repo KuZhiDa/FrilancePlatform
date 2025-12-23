@@ -35,9 +35,9 @@ let RolesGuard = class RolesGuard {
         return role_user === role[0] ? true : false;
     }
 };
-RolesGuard = __decorate([
+exports.RolesGuard = RolesGuard;
+exports.RolesGuard = RolesGuard = __decorate([
     (0, common_1.Injectable)(),
     __metadata("design:paramtypes", [core_1.Reflector])
 ], RolesGuard);
-exports.RolesGuard = RolesGuard;
 //# sourceMappingURL=guard.roles.js.map

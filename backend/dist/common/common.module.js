@@ -13,12 +13,12 @@ const sequelize_1 = require("@nestjs/sequelize");
 const users_model_1 = require("../model/users/users.model");
 let CommonModule = class CommonModule {
 };
-CommonModule = __decorate([
+exports.CommonModule = CommonModule;
+exports.CommonModule = CommonModule = __decorate([
     (0, common_1.Module)({
         providers: [check_service_1.CheckService],
         imports: [sequelize_1.SequelizeModule.forFeature([users_model_1.User])],
         exports: [check_service_1.CheckService],
     })
 ], CommonModule);
-exports.CommonModule = CommonModule;
 //# sourceMappingURL=common.module.js.map

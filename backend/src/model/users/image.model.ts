@@ -24,4 +24,7 @@ export class Images extends Model<Images, InterfaceImages> {
 
   @Column({ type: DataType.STRING, allowNull: false })
   declare name_image: string;
+
+  @BelongsTo(() => User, { foreignKey: 'id_user' })
+  userImage: User;
 }

@@ -16,7 +16,8 @@ const projects_model_1 = require("../../../model/executor/work_Info/projects.mod
 const common_module_1 = require("../../../common/common.module");
 let WorkInfoModule = class WorkInfoModule {
 };
-WorkInfoModule = __decorate([
+exports.WorkInfoModule = WorkInfoModule;
+exports.WorkInfoModule = WorkInfoModule = __decorate([
     (0, common_1.Module)({
         controllers: [work_info_controller_1.WorkInfoController],
         providers: [work_info_service_1.WorkInfoService],
@@ -26,5 +27,4 @@ WorkInfoModule = __decorate([
         ],
     })
 ], WorkInfoModule);
-exports.WorkInfoModule = WorkInfoModule;
 //# sourceMappingURL=work-info.module.js.map

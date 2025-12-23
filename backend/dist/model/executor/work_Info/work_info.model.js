@@ -14,11 +14,13 @@ const sequelize_typescript_1 = require("sequelize-typescript");
 const users_model_1 = require("../../users/users.model");
 const projects_model_1 = require("./projects.model");
 let WorkInfoExecutor = class WorkInfoExecutor extends sequelize_typescript_1.Model {
-    project;
+    executorProject;
+    workInfUser;
 };
+exports.WorkInfoExecutor = WorkInfoExecutor;
 __decorate([
-    (0, sequelize_typescript_1.Column)({ type: sequelize_typescript_1.DataType.INTEGER, allowNull: false }),
     (0, sequelize_typescript_1.ForeignKey)(() => users_model_1.User),
+    (0, sequelize_typescript_1.Column)({ type: sequelize_typescript_1.DataType.INTEGER, allowNull: false }),
     __metadata("design:type", Number)
 ], WorkInfoExecutor.prototype, "id_user", void 0);
 __decorate([
@@ -26,7 +28,6 @@ __decorate([
         field: 'name_skill',
         type: sequelize_typescript_1.DataType.STRING,
         allowNull: false,
-        unique: true,
     }),
     __metadata("design:type", String)
 ], WorkInfoExecutor.prototype, "skillName", void 0);
@@ -47,11 +48,20 @@ __decorate([
     __metadata("design:type", String)
 ], WorkInfoExecutor.prototype, "infoAboutSkillOrExperience", void 0);
 __decorate([
-    (0, sequelize_typescript_1.HasMany)(() => projects_model_1.ProjectExecutor, { foreignKey: 'id_work_info' }),
+    (0, sequelize_typescript_1.HasMany)(() => projects_model_1.ProjectExecutor, {
+        foreignKey: 'id_work_info',
+        onDelete: 'CASCADE',
+        hooks: true,
+    }),
     __metadata("design:type", Array)
-], WorkInfoExecutor.prototype, "project", void 0);
-WorkInfoExecutor = __decorate([
+], WorkInfoExecutor.prototype, "executorProject", void 0);
+__decorate([
+    (0, sequelize_typescript_1.BelongsTo)(() => users_model_1.User, {
+        foreignKey: 'id_user',
+    }),
+    __metadata("design:type", users_model_1.User)
+], WorkInfoExecutor.prototype, "workInfUser", void 0);
+exports.WorkInfoExecutor = WorkInfoExecutor = __decorate([
     (0, sequelize_typescript_1.Table)({ tableName: 'executor_work_info' })
 ], WorkInfoExecutor);
-exports.WorkInfoExecutor = WorkInfoExecutor;
 //# sourceMappingURL=work_info.model.js.map

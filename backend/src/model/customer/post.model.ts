@@ -1,4 +1,5 @@
 import {
+  BelongsTo,
   Column,
   DataType,
   ForeignKey,
@@ -21,8 +22,8 @@ export class CustomerPost extends Model<CustomerPost, CustomerPostInterface> {
   @Column({ type: DataType.INTEGER, primaryKey: true, autoIncrement: true })
   declare id: number;
 
-  @Column({ type: DataType.INTEGER, allowNull: false })
   @ForeignKey(() => User)
+  @Column({ type: DataType.INTEGER, allowNull: false })
   declare id_user: number;
 
   @Column({ field: 'project_name', type: DataType.STRING, allowNull: false })
@@ -34,6 +35,13 @@ export class CustomerPost extends Model<CustomerPost, CustomerPostInterface> {
   @Column({ type: DataType.INTEGER, allowNull: false })
   declare price: number;
 
-  @HasMany(() => FeedBack, { foreignKey: 'postId', onDelete: 'CASCADE' })
+  @HasMany(() => FeedBack, {
+    foreignKey: 'post_id',
+    onDelete: 'CASCADE',
+    hooks: true,
+  })
   feedBack: FeedBack[];
+
+  @BelongsTo(() => User, { foreignKey: 'id_user' })
+  user: User;
 }

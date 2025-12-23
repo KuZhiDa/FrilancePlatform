@@ -16,6 +16,7 @@ class PostUpdateDto {
     description;
     price;
 }
+exports.PostUpdateDto = PostUpdateDto;
 __decorate([
     (0, class_validator_1.IsOptional)(),
     (0, class_validator_1.IsString)(),
@@ -31,5 +32,4 @@ __decorate([
     (0, class_validator_1.IsNumber)(),
     __metadata("design:type", Number)
 ], PostUpdateDto.prototype, "price", void 0);
-exports.PostUpdateDto = PostUpdateDto;
 //# sourceMappingURL=update.dto.js.map

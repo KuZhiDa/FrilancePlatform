@@ -22,7 +22,11 @@ interface dataPortfolio {
 
 @Table({ tableName: 'executor_profiles' })
 export class ProfilesExecutor extends Model<ProfilesExecutor, dataPortfolio> {
-  @Column({ type: DataType.INTEGER, allowNull: false, unique: true })
+  @Column({
+    type: DataType.INTEGER,
+    allowNull: false,
+    unique: true,
+  })
   @ForeignKey(() => User)
   declare id_user: number;
 
@@ -54,4 +58,7 @@ export class ProfilesExecutor extends Model<ProfilesExecutor, dataPortfolio> {
     defaultValue: `О себе`,
   })
   declare infoAboutYourself: string;
+
+  @BelongsTo(() => User, { foreignKey: 'id_user' })
+  userProfile: User;
 }

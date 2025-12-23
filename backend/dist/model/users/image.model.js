@@ -13,7 +13,9 @@ exports.Images = void 0;
 const sequelize_typescript_1 = require("sequelize-typescript");
 const users_model_1 = require("./users.model");
 let Images = class Images extends sequelize_typescript_1.Model {
+    userImage;
 };
+exports.Images = Images;
 __decorate([
     (0, sequelize_typescript_1.Column)({ type: sequelize_typescript_1.DataType.INTEGER, allowNull: false }),
     (0, sequelize_typescript_1.ForeignKey)(() => users_model_1.User),
@@ -27,8 +29,11 @@ __decorate([
     (0, sequelize_typescript_1.Column)({ type: sequelize_typescript_1.DataType.STRING, allowNull: false }),
     __metadata("design:type", String)
 ], Images.prototype, "name_image", void 0);
-Images = __decorate([
+__decorate([
+    (0, sequelize_typescript_1.BelongsTo)(() => users_model_1.User, { foreignKey: 'id_user' }),
+    __metadata("design:type", users_model_1.User)
+], Images.prototype, "userImage", void 0);
+exports.Images = Images = __decorate([
     (0, sequelize_typescript_1.Table)({ tableName: 'images' })
 ], Images);
-exports.Images = Images;
 //# sourceMappingURL=image.model.js.map

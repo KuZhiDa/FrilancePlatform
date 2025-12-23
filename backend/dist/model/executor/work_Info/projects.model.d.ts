@@ -1,4 +1,5 @@
 import { Model } from 'sequelize-typescript';
+import { WorkInfoExecutor } from './work_info.model';
 interface modelPortfolioProject {
     id_WorkInfo: number;
     urlGit: string;
@@ -10,5 +11,6 @@ export declare class ProjectExecutor extends Model<ProjectExecutor, modelPortfol
     urlGit: string;
     projectName: string;
     description?: string;
+    projectWorkInfo: WorkInfoExecutor;
 }
 export {};

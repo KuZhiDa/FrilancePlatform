@@ -18,7 +18,8 @@ const email_module_1 = require("../email/email.module");
 const two_factor_module_1 = require("../two_factor_auth/two_factor.module");
 let AuthModule = class AuthModule {
 };
-AuthModule = __decorate([
+exports.AuthModule = AuthModule;
+exports.AuthModule = AuthModule = __decorate([
     (0, common_1.Module)({
         providers: [auth_service_1.AuthService],
         controllers: [auth_controller_1.AuthController],
@@ -30,5 +31,4 @@ AuthModule = __decorate([
         ],
     })
 ], AuthModule);
-exports.AuthModule = AuthModule;
 //# sourceMappingURL=auth.module.js.map

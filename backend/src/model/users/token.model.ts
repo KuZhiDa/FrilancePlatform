@@ -21,4 +21,7 @@ export class RefreshToken extends Model<RefreshToken, interfaceForToken> {
 
   @Column({ type: DataType.STRING, unique: true, allowNull: false })
   declare token: string;
+
+  @BelongsTo(() => User, { foreignKey: 'id_user' })
+  tokenUser: User;
 }

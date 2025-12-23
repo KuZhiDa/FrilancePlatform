@@ -5,6 +5,7 @@ import {
   Table,
   Model,
   HasMany,
+  BelongsTo,
 } from 'sequelize-typescript';
 import { User } from '../../users/users.model';
 import { ProjectExecutor } from './projects.model';
@@ -21,15 +22,14 @@ export class WorkInfoExecutor extends Model<
   WorkInfoExecutor,
   PortfolioInterface
 > {
-  @Column({ type: DataType.INTEGER, allowNull: false })
   @ForeignKey(() => User)
+  @Column({ type: DataType.INTEGER, allowNull: false })
   declare id_user: number;
 
   @Column({
     field: 'name_skill',
     type: DataType.STRING,
     allowNull: false,
-    unique: true,
   })
   declare skillName: string;
 
@@ -47,6 +47,15 @@ export class WorkInfoExecutor extends Model<
   })
   declare infoAboutSkillOrExperience?: string;
 
-  @HasMany(() => ProjectExecutor, { foreignKey: 'id_work_info' })
-  project: ProjectExecutor[];
+  @HasMany(() => ProjectExecutor, {
+    foreignKey: 'id_work_info',
+    onDelete: 'CASCADE',
+    hooks: true,
+  })
+  executorProject: ProjectExecutor[];
+
+  @BelongsTo(() => User, {
+    foreignKey: 'id_user',
+  })
+  workInfUser: User;
 }

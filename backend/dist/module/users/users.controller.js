@@ -29,6 +29,7 @@ let UsersController = class UsersController {
         return await this.usersService.updateInfo(id_user, body);
     }
 };
+exports.UsersController = UsersController;
 __decorate([
     (0, common_1.UseGuards)(guard_jwt_1.JwtAccessAuthGuard),
     (0, common_1.Get)('info/:id'),
@@ -46,9 +47,8 @@ __decorate([
     __metadata("design:paramtypes", [Number, dto_update_1.dtoForUpdate]),
     __metadata("design:returntype", Promise)
 ], UsersController.prototype, "patchPersonalInfo", null);
-UsersController = __decorate([
+exports.UsersController = UsersController = __decorate([
     (0, common_1.Controller)('users'),
     __metadata("design:paramtypes", [users_service_1.UsersService])
 ], UsersController);
-exports.UsersController = UsersController;
 //# sourceMappingURL=users.controller.js.map

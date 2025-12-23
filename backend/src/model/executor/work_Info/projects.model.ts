@@ -20,7 +20,11 @@ export class ProjectExecutor extends Model<
   ProjectExecutor,
   modelPortfolioProject
 > {
-  @Column({ field: 'id_work_info', type: DataType.INTEGER, allowNull: false })
+  @Column({
+    field: 'id_work_info',
+    type: DataType.INTEGER,
+    allowNull: false,
+  })
   @ForeignKey(() => WorkInfoExecutor)
   declare id_WorkInfo: number;
 
@@ -32,4 +36,9 @@ export class ProjectExecutor extends Model<
 
   @Column({ type: DataType.TEXT, allowNull: true })
   declare description?: string;
+
+  @BelongsTo(() => WorkInfoExecutor, {
+    foreignKey: 'id_work_info',
+  })
+  projectWorkInfo: WorkInfoExecutor;
 }

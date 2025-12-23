@@ -34,6 +34,7 @@ let ProfileController = class ProfileController {
         return await this.profileService.deleteInfo(id_user);
     }
 };
+exports.ProfileController = ProfileController;
 __decorate([
     (0, common_1.Get)('info/:id'),
     __param(0, (0, common_1.Param)('id')),
@@ -64,9 +65,8 @@ __decorate([
     __metadata("design:paramtypes", [Number]),
     __metadata("design:returntype", Promise)
 ], ProfileController.prototype, "deleteProfile", null);
-ProfileController = __decorate([
+exports.ProfileController = ProfileController = __decorate([
     (0, common_1.Controller)('profile'),
     __metadata("design:paramtypes", [profile_service_1.ProfileService])
 ], ProfileController);
-exports.ProfileController = ProfileController;
 //# sourceMappingURL=profile.controller.js.map

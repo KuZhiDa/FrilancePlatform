@@ -32,6 +32,7 @@ let ImageController = class ImageController {
         return { avatar_name: data.name_image };
     }
 };
+exports.ImageController = ImageController;
 __decorate([
     (0, common_1.UseGuards)(guard_jwt_1.JwtAccessAuthGuard),
     (0, common_1.Post)('add'),
@@ -42,9 +43,8 @@ __decorate([
     __metadata("design:paramtypes", [Object, Object]),
     __metadata("design:returntype", Promise)
 ], ImageController.prototype, "postImage", null);
-ImageController = __decorate([
+exports.ImageController = ImageController = __decorate([
     (0, common_1.Controller)('image'),
     __metadata("design:paramtypes", [image_service_1.ImageService])
 ], ImageController);
-exports.ImageController = ImageController;
 //# sourceMappingURL=image.controller.js.map

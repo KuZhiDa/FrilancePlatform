@@ -16,6 +16,7 @@ class DtoForLog {
     password;
     role_user;
 }
+exports.DtoForLog = DtoForLog;
 __decorate([
     (0, class_validator_1.IsNotEmpty)({ message: 'Поле login не заполнено.' }),
     __metadata("design:type", String)
@@ -24,5 +25,4 @@ __decorate([
     (0, class_validator_1.IsNotEmpty)({ message: 'Поле password не заполнено' }),
     __metadata("design:type", String)
 ], DtoForLog.prototype, "password", void 0);
-exports.DtoForLog = DtoForLog;
 //# sourceMappingURL=dto.login.js.map

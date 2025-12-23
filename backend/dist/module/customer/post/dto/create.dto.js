@@ -16,6 +16,7 @@ class PostCreateDto {
     description;
     price;
 }
+exports.PostCreateDto = PostCreateDto;
 __decorate([
     (0, class_validator_1.IsNotEmpty)({ message: 'Поле projectName не должно быть пустым.' }),
     (0, class_validator_1.Length)(1, 30, {
@@ -34,5 +35,4 @@ __decorate([
     (0, class_validator_1.IsNotEmpty)({ message: 'Поле price не должно быть пустым.' }),
     __metadata("design:type", Number)
 ], PostCreateDto.prototype, "price", void 0);
-exports.PostCreateDto = PostCreateDto;
 //# sourceMappingURL=create.dto.js.map

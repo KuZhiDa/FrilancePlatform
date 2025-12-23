@@ -13,7 +13,9 @@ exports.RefreshToken = void 0;
 const sequelize_typescript_1 = require("sequelize-typescript");
 const users_model_1 = require("./users.model");
 let RefreshToken = class RefreshToken extends sequelize_typescript_1.Model {
+    tokenUser;
 };
+exports.RefreshToken = RefreshToken;
 __decorate([
     (0, sequelize_typescript_1.Column)({ type: sequelize_typescript_1.DataType.SMALLINT, allowNull: false }),
     (0, sequelize_typescript_1.ForeignKey)(() => users_model_1.User),
@@ -23,8 +25,11 @@ __decorate([
     (0, sequelize_typescript_1.Column)({ type: sequelize_typescript_1.DataType.STRING, unique: true, allowNull: false }),
     __metadata("design:type", String)
 ], RefreshToken.prototype, "token", void 0);
-RefreshToken = __decorate([
+__decorate([
+    (0, sequelize_typescript_1.BelongsTo)(() => users_model_1.User, { foreignKey: 'id_user' }),
+    __metadata("design:type", users_model_1.User)
+], RefreshToken.prototype, "tokenUser", void 0);
+exports.RefreshToken = RefreshToken = __decorate([
     (0, sequelize_typescript_1.Table)({ tableName: 'token_refresh' })
 ], RefreshToken);
-exports.RefreshToken = RefreshToken;
 //# sourceMappingURL=token.model.js.map

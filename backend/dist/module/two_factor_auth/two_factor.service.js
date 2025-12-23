@@ -65,11 +65,11 @@ let TwoFAService = class TwoFAService {
         return { accessToken, refreshToken };
     }
 };
-TwoFAService = __decorate([
+exports.TwoFAService = TwoFAService;
+exports.TwoFAService = TwoFAService = __decorate([
     (0, common_1.Injectable)(),
     __param(0, (0, ioredis_1.InjectRedis)()),
     __param(1, (0, sequelize_1.InjectModel)(users_model_1.User)),
     __metadata("design:paramtypes", [ioredis_2.default, Object, token_service_1.TokenService])
 ], TwoFAService);
-exports.TwoFAService = TwoFAService;
 //# sourceMappingURL=two_factor.service.js.map

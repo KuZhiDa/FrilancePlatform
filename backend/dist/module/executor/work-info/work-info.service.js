@@ -76,6 +76,12 @@ let WorkInfoService = class WorkInfoService {
     async addCard(id_user, dto) {
         await this.check.user(id_user);
         const card = { id_user, ...dto };
+        const cardData = await this.workInfoModel.findOne({
+            where: { skillName: card.skillName, id_user: id_user },
+        });
+        if (cardData) {
+            throw new common_1.HttpException('Карточка с таким названием уже существует.', common_1.HttpStatus.FORBIDDEN);
+        }
         const result = await this.workInfoModel.create(card);
         dto.id = result.id;
         return dto;
@@ -113,11 +119,11 @@ let WorkInfoService = class WorkInfoService {
         return { message: 'Проект удален.' };
     }
 };
-WorkInfoService = __decorate([
+exports.WorkInfoService = WorkInfoService;
+exports.WorkInfoService = WorkInfoService = __decorate([
     (0, common_1.Injectable)(),
     __param(0, (0, sequelize_1.InjectModel)(work_info_model_1.WorkInfoExecutor)),
     __param(1, (0, sequelize_1.InjectModel)(projects_model_1.ProjectExecutor)),
     __metadata("design:paramtypes", [Object, Object, check_service_1.CheckService])
 ], WorkInfoService);
-exports.WorkInfoService = WorkInfoService;
 //# sourceMappingURL=work-info.service.js.map

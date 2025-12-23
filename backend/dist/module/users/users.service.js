@@ -67,10 +67,10 @@ let UsersService = class UsersService {
         return { message: 'Данные успешно обновлены.' };
     }
 };
-UsersService = __decorate([
+exports.UsersService = UsersService;
+exports.UsersService = UsersService = __decorate([
     (0, common_1.Injectable)(),
     __param(0, (0, sequelize_1.InjectModel)(users_model_1.User)),
     __metadata("design:paramtypes", [Object, image_service_1.ImageService])
 ], UsersService);
-exports.UsersService = UsersService;
 //# sourceMappingURL=users.service.js.map

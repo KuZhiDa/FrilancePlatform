@@ -50,6 +50,7 @@ let AuthController = class AuthController {
         return result;
     }
 };
+exports.AuthController = AuthController;
 __decorate([
     (0, common_1.Post)('register'),
     __param(0, (0, common_1.Body)()),
@@ -73,9 +74,8 @@ __decorate([
     __metadata("design:paramtypes", [Object, Object]),
     __metadata("design:returntype", void 0)
 ], AuthController.prototype, "postLogout", null);
-AuthController = __decorate([
+exports.AuthController = AuthController = __decorate([
     (0, common_1.Controller)('auth'),
     __metadata("design:paramtypes", [auth_service_1.AuthService])
 ], AuthController);
-exports.AuthController = AuthController;
 //# sourceMappingURL=auth.controller.js.map

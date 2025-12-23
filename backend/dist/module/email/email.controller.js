@@ -27,6 +27,7 @@ let EmailController = class EmailController {
         return this.emailService.messageEmail(id_user);
     }
 };
+exports.EmailController = EmailController;
 __decorate([
     (0, common_1.Put)('proof'),
     __param(0, (0, common_1.Query)('token')),
@@ -41,9 +42,8 @@ __decorate([
     __metadata("design:paramtypes", [Number]),
     __metadata("design:returntype", Promise)
 ], EmailController.prototype, "PostRetryMessage", null);
-EmailController = __decorate([
+exports.EmailController = EmailController = __decorate([
     (0, common_1.Controller)('email'),
     __metadata("design:paramtypes", [email_service_1.EmailService])
 ], EmailController);
-exports.EmailController = EmailController;
 //# sourceMappingURL=email.controller.js.map

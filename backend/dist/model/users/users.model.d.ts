@@ -5,6 +5,7 @@ import { Images } from './image.model';
 import { ProfilesExecutor } from '../executor/profiles.model';
 import { WorkInfoExecutor } from '../executor/work_Info/work_info.model';
 import { FeedBack } from '../users/feedback.model';
+import { CustomerPost } from '../customer/post.model';
 interface userInterface {
     username: string;
     email: string;
@@ -28,5 +29,6 @@ export declare class User extends Model<User, userInterface> {
     profileExecutor: ProfilesExecutor;
     workInfoExecutor: WorkInfoExecutor[];
     feedBack: FeedBack[];
+    customerPost: CustomerPost[];
 }
 export {};

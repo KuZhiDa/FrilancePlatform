@@ -19,6 +19,7 @@ class DtoProfile {
     cityFrom;
     infoAboutYourself;
 }
+exports.DtoProfile = DtoProfile;
 __decorate([
     (0, class_validator_1.IsOptional)(),
     (0, class_validator_1.IsNumber)({}, { message: 'Возраст должен быть числом.' }),
@@ -48,5 +49,4 @@ __decorate([
     }),
     __metadata("design:type", String)
 ], DtoProfile.prototype, "infoAboutYourself", void 0);
-exports.DtoProfile = DtoProfile;
 //# sourceMappingURL=profile.dto.js.map

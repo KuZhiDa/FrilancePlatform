@@ -16,7 +16,8 @@ const project_model_1 = require("../../model/users/project.model");
 const common_module_1 = require("../../common/common.module");
 let ProjectModule = class ProjectModule {
 };
-ProjectModule = __decorate([
+exports.ProjectModule = ProjectModule;
+exports.ProjectModule = ProjectModule = __decorate([
     (0, common_1.Module)({
         controllers: [project_controller_1.ProjectController],
         providers: [project_service_1.ProjectService],
@@ -24,5 +25,4 @@ ProjectModule = __decorate([
         exports: [project_service_1.ProjectService],
     })
 ], ProjectModule);
-exports.ProjectModule = ProjectModule;
 //# sourceMappingURL=project.module.js.map

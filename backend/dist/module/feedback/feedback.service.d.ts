@@ -21,6 +21,6 @@ export declare class FeedbackService {
         message: string;
     }>;
     rejectFeedback(feedbackId: number): Promise<void>;
-    checkPost(postId: number): Promise<CustomerPost>;
+    checkPost(postId: number): Promise<void>;
     checkFeedback(postId: number, userId: number): Promise<void>;
 }

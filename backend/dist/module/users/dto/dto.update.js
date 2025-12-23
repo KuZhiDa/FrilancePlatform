@@ -15,6 +15,7 @@ class dtoForUpdate {
     username;
     phone_number;
 }
+exports.dtoForUpdate = dtoForUpdate;
 __decorate([
     (0, class_validator_1.IsOptional)(),
     (0, class_validator_1.Length)(4, 15, {
@@ -33,5 +34,4 @@ __decorate([
     (0, class_validator_1.Matches)(/^8[0-9]+$/, { message: '' }),
     __metadata("design:type", String)
 ], dtoForUpdate.prototype, "phone_number", void 0);
-exports.dtoForUpdate = dtoForUpdate;
 //# sourceMappingURL=dto.update.js.map

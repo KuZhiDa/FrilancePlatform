@@ -13,9 +13,15 @@ exports.ProfilesExecutor = void 0;
 const sequelize_typescript_1 = require("sequelize-typescript");
 const users_model_1 = require("../users/users.model");
 let ProfilesExecutor = class ProfilesExecutor extends sequelize_typescript_1.Model {
+    userProfile;
 };
+exports.ProfilesExecutor = ProfilesExecutor;
 __decorate([
-    (0, sequelize_typescript_1.Column)({ type: sequelize_typescript_1.DataType.INTEGER, allowNull: false, unique: true }),
+    (0, sequelize_typescript_1.Column)({
+        type: sequelize_typescript_1.DataType.INTEGER,
+        allowNull: false,
+        unique: true,
+    }),
     (0, sequelize_typescript_1.ForeignKey)(() => users_model_1.User),
     __metadata("design:type", Number)
 ], ProfilesExecutor.prototype, "id_user", void 0);
@@ -54,8 +60,11 @@ __decorate([
     }),
     __metadata("design:type", String)
 ], ProfilesExecutor.prototype, "infoAboutYourself", void 0);
-ProfilesExecutor = __decorate([
+__decorate([
+    (0, sequelize_typescript_1.BelongsTo)(() => users_model_1.User, { foreignKey: 'id_user' }),
+    __metadata("design:type", users_model_1.User)
+], ProfilesExecutor.prototype, "userProfile", void 0);
+exports.ProfilesExecutor = ProfilesExecutor = __decorate([
     (0, sequelize_typescript_1.Table)({ tableName: 'executor_profiles' })
 ], ProfilesExecutor);
-exports.ProfilesExecutor = ProfilesExecutor;
 //# sourceMappingURL=profiles.model.js.map

@@ -75,6 +75,7 @@ let FeedbackService = class FeedbackService {
                 [{ model: users_model_1.User, as: 'executor' }, 'createdAt'],
             ],
         });
+        console.log(feedbackData[0].dataValues.executor);
         const resultFeedbacks = feedbackData.map((feedback) => {
             feedback = feedback.get({ plain: true });
             let executorNew;
@@ -135,7 +136,6 @@ let FeedbackService = class FeedbackService {
         if (!postData) {
             throw new common_1.HttpException('Такого поста нет.', common_1.HttpStatus.NOT_FOUND);
         }
-        return postData;
     }
     async checkFeedback(postId, userId) {
         const feedbackData = await this.feedbackModel.findOne({
@@ -146,7 +146,8 @@ let FeedbackService = class FeedbackService {
         }
     }
 };
-FeedbackService = __decorate([
+exports.FeedbackService = FeedbackService;
+exports.FeedbackService = FeedbackService = __decorate([
     (0, common_1.Injectable)(),
     __param(0, (0, sequelize_1.InjectModel)(feedback_model_1.FeedBack)),
     __param(1, (0, sequelize_1.InjectModel)(post_model_1.CustomerPost)),
@@ -154,5 +155,4 @@ FeedbackService = __decorate([
         project_service_1.ProjectService,
         post_service_1.PostService])
 ], FeedbackService);
-exports.FeedbackService = FeedbackService;
 //# sourceMappingURL=feedback.service.js.map

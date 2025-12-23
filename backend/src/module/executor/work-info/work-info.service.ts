@@ -71,6 +71,15 @@ export class WorkInfoService {
   async addCard(id_user: number, dto: DtoCards): Promise<DtoCards> {
     await this.check.user(id_user);
     const card = { id_user, ...dto };
+    const cardData = await this.workInfoModel.findOne({
+      where: { skillName: card.skillName, id_user: id_user },
+    });
+    if (cardData) {
+      throw new HttpException(
+        'Карточка с таким названием уже существует.',
+        HttpStatus.FORBIDDEN,
+      );
+    }
     const result = await this.workInfoModel.create(card);
     dto.id = result.id;
     return dto;

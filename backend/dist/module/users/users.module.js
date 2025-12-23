@@ -15,12 +15,12 @@ const users_model_1 = require("../../model/users/users.model");
 const image_module_1 = require("../image/image.module");
 let UsersModule = class UsersModule {
 };
-UsersModule = __decorate([
+exports.UsersModule = UsersModule;
+exports.UsersModule = UsersModule = __decorate([
     (0, common_1.Module)({
         controllers: [users_controller_1.UsersController],
         providers: [users_service_1.UsersService],
         imports: [sequelize_1.SequelizeModule.forFeature([users_model_1.User]), image_module_1.ImageModule],
     })
 ], UsersModule);
-exports.UsersModule = UsersModule;
 //# sourceMappingURL=users.module.js.map

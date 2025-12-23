@@ -63,6 +63,7 @@ export class FeedbackService {
         [{ model: User, as: 'executor' }, 'createdAt'],
       ],
     });
+    console.log(feedbackData[0].dataValues.executor);
     const resultFeedbacks = feedbackData.map((feedback) => {
       feedback = feedback.get({ plain: true });
       let executorNew;
@@ -126,7 +127,6 @@ export class FeedbackService {
     if (!postData) {
       throw new HttpException('Такого поста нет.', HttpStatus.NOT_FOUND);
     }
-    return postData;
   }
 
   async checkFeedback(postId: number, userId: number) {

@@ -6,5 +6,5 @@ var Roles;
     Roles["Executor"] = "Executor";
     Roles["Customer"] = "Customer";
     Roles["Admin"] = "Admin";
-})(Roles = exports.Roles || (exports.Roles = {}));
+})(Roles || (exports.Roles = Roles = {}));
 //# sourceMappingURL=roles.js.map

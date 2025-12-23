@@ -18,6 +18,7 @@ class DtoForReg {
     password;
     is2Fa;
 }
+exports.DtoForReg = DtoForReg;
 __decorate([
     (0, class_validator_1.Length)(4, 15, {
         message: 'Поле username должно содержать от 4 до 15 символов.',
@@ -61,5 +62,4 @@ __decorate([
     (0, class_validator_1.IsBoolean)(),
     __metadata("design:type", Boolean)
 ], DtoForReg.prototype, "is2Fa", void 0);
-exports.DtoForReg = DtoForReg;
 //# sourceMappingURL=dto.register.js.map

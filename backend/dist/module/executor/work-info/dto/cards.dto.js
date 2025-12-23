@@ -18,6 +18,7 @@ class DtoCards {
     infoAboutSkillOrExperience;
     project;
 }
+exports.DtoCards = DtoCards;
 __decorate([
     (0, class_validator_1.IsNotEmpty)({ message: 'Поле skillName не должно быть пустым.' }),
     (0, class_validator_1.Length)(1, 30, {
@@ -29,5 +30,4 @@ __decorate([
     (0, class_validator_1.IsNotEmpty)({ message: 'Поле experience не должно быть пустым.' }),
     __metadata("design:type", Number)
 ], DtoCards.prototype, "experience", void 0);
-exports.DtoCards = DtoCards;
 //# sourceMappingURL=cards.dto.js.map

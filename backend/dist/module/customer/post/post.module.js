@@ -17,7 +17,8 @@ const common_module_1 = require("../../../common/common.module");
 const feedback_model_1 = require("../../../model/users/feedback.model");
 let PostModule = class PostModule {
 };
-PostModule = __decorate([
+exports.PostModule = PostModule;
+exports.PostModule = PostModule = __decorate([
     (0, common_1.Module)({
         controllers: [post_controller_1.PostController],
         providers: [post_service_1.PostService],
@@ -28,5 +29,4 @@ PostModule = __decorate([
         exports: [post_service_1.PostService],
     })
 ], PostModule);
-exports.PostModule = PostModule;
 //# sourceMappingURL=post.module.js.map

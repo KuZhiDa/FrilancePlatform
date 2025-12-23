@@ -16,12 +16,12 @@ const token_module_1 = require("../token/token.module");
 const email_module_1 = require("../email/email.module");
 let PasswordRecoveryModule = class PasswordRecoveryModule {
 };
-PasswordRecoveryModule = __decorate([
+exports.PasswordRecoveryModule = PasswordRecoveryModule;
+exports.PasswordRecoveryModule = PasswordRecoveryModule = __decorate([
     (0, common_1.Module)({
         providers: [pass_recovery_service_1.PasswordRecoveryService],
         controllers: [pas_recovery_controller_1.PasswordRecoveryController],
         imports: [sequelize_1.SequelizeModule.forFeature([users_model_1.User]), token_module_1.TokenModule, email_module_1.EmailModule],
     })
 ], PasswordRecoveryModule);
-exports.PasswordRecoveryModule = PasswordRecoveryModule;
 //# sourceMappingURL=pas_recovery.module.js.map

@@ -33,6 +33,7 @@ let TwoFaController = class TwoFaController {
         };
     }
 };
+exports.TwoFaController = TwoFaController;
 __decorate([
     (0, common_1.Post)('proof-code'),
     __param(0, (0, common_1.Body)()),
@@ -41,9 +42,8 @@ __decorate([
     __metadata("design:paramtypes", [ckeck_code_dto_1.DtoCheckCode, Object]),
     __metadata("design:returntype", Promise)
 ], TwoFaController.prototype, "postAcceptedCode", null);
-TwoFaController = __decorate([
+exports.TwoFaController = TwoFaController = __decorate([
     (0, common_1.Controller)('two-factor-auth'),
     __metadata("design:paramtypes", [two_factor_service_1.TwoFAService])
 ], TwoFaController);
-exports.TwoFaController = TwoFaController;
 //# sourceMappingURL=two_factor.controller.js.map

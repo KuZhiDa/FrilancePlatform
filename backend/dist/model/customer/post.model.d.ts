@@ -1,4 +1,5 @@
 import { Model } from 'sequelize-typescript';
+import { User } from '../users/users.model';
 import { FeedBack } from '../users/feedback.model';
 interface CustomerPostInterface {
     id_user: number;
@@ -13,5 +14,6 @@ export declare class CustomerPost extends Model<CustomerPost, CustomerPostInterf
     description: string;
     price: number;
     feedBack: FeedBack[];
+    user: User;
 }
 export {};
