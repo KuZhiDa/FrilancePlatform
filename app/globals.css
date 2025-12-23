@@ -1,0 +1,19 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+.input {
+	@apply w-full border border-gray-300 rounded-lg p-3 focus:outline-none focus:ring-2 focus:ring-blue-300 mb-1;
+}
+
+.btn {
+	@apply w-full py-3 rounded-lg text-white font-semibold bg-gradient-to-r from-blue-400 to-blue-500 hover:opacity-90 transition;
+}
+
+.error {
+	@apply text-red-500 text-sm leading-tight;
+}
+
+.link {
+	@apply text-blue-500 hover:underline cursor-pointer;
+}
