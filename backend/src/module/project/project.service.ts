@@ -53,7 +53,6 @@ export class ProjectService {
     if (!data) {
       throw new BadRequestException('Пользователя с таким id не существует.');
     }
-    console.log(where.selectAll);
     const projects = await this.projectModel.findAll({
       attributes: [
         'id',

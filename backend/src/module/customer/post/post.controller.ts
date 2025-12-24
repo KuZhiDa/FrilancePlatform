@@ -27,7 +27,6 @@ export class PostController {
     @Query() dto: paramsSelectDto,
     @Req() user: Request & { user: { id_user: number; role_user: string } },
   ) {
-    console.log(user);
     return await this.postService.getListPost(dto, user.user);
   }
 
@@ -38,7 +37,6 @@ export class PostController {
 
   @Post('customer/:id')
   async postPost(@Param('id') id: number, @Body() dto: PostCreateDto) {
-    console.log(dto);
     return await this.postService.addPost(id, dto);
   }
 

@@ -46,7 +46,9 @@ export default function DashboardPage() {
 	}
 
 	const handleBack = () => {
-		router.push(`/dashboard/${id_user_from_storage}`)
+		const post = localStorage.getItem('postId')
+		localStorage.removeItem('postId')
+		router.push(`/feedbacks?postId=${post}`)
 	}
 
 	const fetchUserProjectsWithAuth = async (id: string) => {

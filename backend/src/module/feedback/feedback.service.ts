@@ -11,6 +11,7 @@ import { ProjectService } from '../project/project.service';
 import { ProjectInterface } from './interface/project.interface';
 import { Sequelize } from 'sequelize';
 import { PostService } from '../customer/post/post.service';
+import sequelize from 'sequelize';
 
 @Injectable()
 export class FeedbackService {
@@ -52,6 +53,15 @@ export class FeedbackService {
           attributes: [
             'id',
             'username',
+            [
+              Sequelize.literal(`
+                CASE
+                  WHEN "executor"."rating_count" = 0 THEN 0
+                  ELSE "executor"."rating_sum"::float / "executor"."rating_count"
+                END
+              `),
+              'rating',
+            ],
             'rating_sum',
             'rating_count',
             'createdAt',
@@ -60,25 +70,20 @@ export class FeedbackService {
       ],
       order: [
         'suggested_price',
+        [
+          Sequelize.literal(`
+            CASE
+              WHEN "executor"."rating_count" = 0 THEN 0
+              ELSE "executor"."rating_sum"::float / "executor"."rating_count"
+            END
+          `),
+          'DESC',
+        ],
         [{ model: User, as: 'executor' }, 'createdAt'],
       ],
     });
-    console.log(feedbackData[0].dataValues.executor);
     const resultFeedbacks = feedbackData.map((feedback) => {
       feedback = feedback.get({ plain: true });
-      let executorNew;
-      if (feedback.executor.rating_count > 0) {
-        executorNew = {
-          rating: feedback.executor.rating_sum / feedback.executor.rating_count,
-          ...feedback.executor,
-        };
-      } else {
-        executorNew = {
-          rating: 0,
-          ...feedback,
-        };
-      }
-      feedback.executor = executorNew;
       return feedback;
     });
     return resultFeedbacks;

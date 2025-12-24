@@ -55,8 +55,8 @@ exports.appModule = appModule = __decorate([
             }),
             ioredis_1.RedisModule.forRoot({
                 config: {
-                    host: '127.0.0.1',
-                    port: 6379,
+                    host: process.env.REDIS_HOST,
+                    port: Number(process.env.REDIS_PORT),
                 },
             }),
             config_1.ConfigModule.forRoot({ isGlobal: true, envFilePath: '.env' }),
@@ -98,7 +98,6 @@ exports.appModule = appModule = __decorate([
             email_module_1.EmailModule,
             token_module_1.TokenModule,
             pas_recovery_module_1.PasswordRecoveryModule,
-            ioredis_1.RedisModule,
             project_module_1.ProjectModule,
             image_module_1.ImageModule,
             profile_module_1.ProfileModule,

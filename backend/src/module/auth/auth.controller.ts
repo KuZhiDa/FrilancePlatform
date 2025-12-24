@@ -22,7 +22,6 @@ export class AuthController {
     if (result.is2Fa) {
       return result;
     } else {
-      console.log(result.refreshToken);
       res.cookie('token', result.refreshToken, {
         httpOnly: true,
         maxAge: 30 * 24 * 60 * 60 * 1000,
