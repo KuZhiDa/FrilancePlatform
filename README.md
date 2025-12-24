@@ -1,4 +1,4 @@
-FrilancePlatform
+😎FrilancePlatform
 Веб-приложение с серверной частью на NestJS и клиентской частью на Next.js. Приложение использует PostgreSQL и pgAdmin, контейнеризовано через Docker Compose.
 
 Стек технологий:
