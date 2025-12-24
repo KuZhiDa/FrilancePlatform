@@ -44,8 +44,8 @@ import { FeedbackModule } from './module/feedback/feedback.module';
     }),
     RedisModule.forRoot({
       config: {
-        host: '127.0.0.1',
-        port: 6379,
+        host: process.env.REDIS_HOST,
+        port: Number(process.env.REDIS_PORT),
       },
     }),
     ConfigModule.forRoot({ isGlobal: true, envFilePath: '.env' }),
@@ -87,7 +87,6 @@ import { FeedbackModule } from './module/feedback/feedback.module';
     EmailModule,
     TokenModule,
     PasswordRecoveryModule,
-    RedisModule,
     ProjectModule,
     ImageModule,
     ProfileModule,

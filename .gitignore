@@ -92,3 +92,6 @@ pids/
 # Security
 # =========================
 *.pem
+
+pgadmin_data
+pgdata
