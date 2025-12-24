@@ -1,0 +1,69 @@
+# compiled output
+/dist
+/build
+/.next
+/out
+
+# dependencies
+/node_modules
+/.pnp
+.pnp.*
+.yarn/*
+!.yarn/patches
+!.yarn/plugins
+!.yarn/releases
+!.yarn/versions
+
+# logs
+logs
+*.log
+npm-debug.log*
+yarn-debug.log*
+pnpm-debug.log*
+lerna-debug.log*
+
+# OS files
+.DS_Store
+
+# tests coverage
+/coverage
+/.nyc_output
+
+# IDEs, editors
+/.idea
+.project
+.classpath
+.settings/
+/.vscode/*
+!/.vscode/settings.json
+!/.vscode/launch.json
+!/.vscode/tasks.json
+!/.vscode/extensions.json
+
+# dotenv environment files
+.env*
+.env.development
+.env.test
+.env.production
+.env.local
+
+# temp dirs
+.temp
+.tmp
+/tmp
+
+# runtime / pid files
+pids
+*.pid
+*.seed
+*.pid.lock
+
+# diagnostic reports from Node.js
+report.[0-9]*.[0-9]*.[0-9]*.[0-9]*.json
+
+# TypeScript build info
+*.tsbuildinfo
+
+# Misc
+*.pem
+.vercel
